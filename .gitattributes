@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+*.bat eol=crlf
+*.jar binary
+*.java diff=java whitespace=indent-with-non-tab,space-before-tab,tabwidth=4,trailing-space
+*.properties whitespace=trailing-space

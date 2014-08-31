@@ -1,0 +1,8 @@
+# Gradle
+/.gradle/
+/build/
+/gradle-app.setting
+
+# Eclipse
+/bin/
+/.settings/
