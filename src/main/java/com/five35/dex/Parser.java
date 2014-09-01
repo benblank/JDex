@@ -15,12 +15,14 @@ public final class Parser {
 	 * 
 	 * @param source The Dex source to parse.
 	 * @return An expression representing the parsed source.
+	 * @throws ParserException When the supplied source cannot be parsed as a
+	 *         Dex expression.
 	 */
-	public static Expression parse(final String source) {
+	public static Expression parse(final String source) throws ParserException {
 		return new Parser(source).parse();
 	}
 
-	private Expression parse() {
+	private Expression parse() throws ParserException {
 		return null;
 	}
 }
