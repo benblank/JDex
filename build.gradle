@@ -8,5 +8,6 @@ repositories {
 sourceCompatibility = 1.7
 
 dependencies {
+	compile "com.google.guava:guava:16.0.+"
 	testCompile "junit:junit:4.+"
 }
