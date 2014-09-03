@@ -1,5 +1,8 @@
 package com.five35.dex;
 
+import com.google.common.base.Preconditions;
+import javax.annotation.Nonnull;
+
 /**
  * A parser for Dex code.
  */
@@ -18,10 +21,12 @@ public final class Parser {
 	 * @throws ParserException When the supplied source cannot be parsed as a
 	 *         Dex expression.
 	 */
+	@Nonnull
 	public static Expression parse(final String source) throws ParserException {
-		return new Parser(source).parse();
+		return new Parser(Preconditions.checkNotNull(source)).parse();
 	}
 
+	@Nonnull
 	private Expression parse() throws ParserException {
 		return null;
 	}

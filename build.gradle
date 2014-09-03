@@ -1,5 +1,7 @@
-apply plugin: "java"
+apply plugin: "checkstyle"
 apply plugin: "eclipse"
+apply plugin: "findbugs"
+apply plugin: "java"
 
 repositories {
 	mavenCentral()
@@ -8,6 +10,8 @@ repositories {
 sourceCompatibility = 1.7
 
 dependencies {
-	compile "com.google.guava:guava:16.0.+"
+	compile \
+		"com.google.code.findbugs:jsr305:2.0.+",
+		"com.google.guava:guava:16.0.+"
 	testCompile "junit:junit:4.+"
 }
