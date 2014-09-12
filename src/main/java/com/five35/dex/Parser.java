@@ -1,16 +1,21 @@
 package com.five35.dex;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.PeekingIterator;
+import java.util.List;
 import javax.annotation.Nonnull;
 
 /**
  * A parser for Dex code.
  */
 public final class Parser {
-	private final String source;
+	private final PeekingIterator<Token> tokens;
 
 	private Parser(final String source) {
-		this.source = source;
+		final List<Token> tokenList = Tokenizer.tokenize(Preconditions.checkNotNull(source));
+
+		this.tokens = Iterators.peekingIterator(tokenList.iterator());
 	}
 
 	/**
