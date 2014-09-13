@@ -24,11 +24,9 @@ public class Token {
 		return this.index;
 	}
 
-	/**
-	 * @return The sequence of characters comprising the token.
-	 */
+	@Override
 	@Nonnull
-	public String getValue() {
+	public String toString() {
 		return this.value;
 	}
 }
