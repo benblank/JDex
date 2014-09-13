@@ -43,7 +43,8 @@ final class Tokenizer {
 		final List<Token> tokens = new ArrayList<>();
 
 		while (matcher.find()) {
-			tokens.add(new Token(matcher.start(), matcher.group()));
+			// add 1 so that the first character isn't "character 0"
+			tokens.add(new Token(matcher.start() + 1, matcher.group()));
 		}
 
 		return tokens;
