@@ -35,4 +35,9 @@ public final class Parser {
 	Expression getExpression() throws ParserException {
 		return null;
 	}
+
+	Token getToken() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
