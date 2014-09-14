@@ -5,7 +5,7 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: Gradle Checkstyle
+    Checkstyle-Configuration: Project Configuration
     Description: none
 -->
 <module name="Checker">
@@ -52,7 +52,9 @@
     <module name="RightCurly"/>
     <module name="CovariantEquals"/>
     <module name="DefaultComesLast"/>
-    <module name="DeclarationOrder"/>
+    <module name="DeclarationOrder">
+      <property name="ignoreModifiers" value="true"/>
+    </module>
     <module name="EmptyStatement"/>
     <module name="EqualsHashCode"/>
     <module name="ExplicitInitialization"/>
