@@ -2,6 +2,7 @@ package com.five35.dex;
 
 import com.google.common.base.Optional;
 import java.util.Map;
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 /**
@@ -16,5 +17,6 @@ public interface Expression {
 	 *        expression.
 	 * @return The result of executing the expression.
 	 */
+	@Nonnull
 	Result execute(Optional<Map<String, Expression>> variables);
 }

@@ -28,11 +28,11 @@ public final class Parser {
 	 */
 	@Nonnull
 	public static Expression parse(final String source) throws ParserException {
-		return new Parser(Preconditions.checkNotNull(source)).parse();
+		return new Parser(Preconditions.checkNotNull(source)).getExpression();
 	}
 
 	@Nonnull
-	private Expression parse() throws ParserException {
+	Expression getExpression() throws ParserException {
 		return null;
 	}
 }

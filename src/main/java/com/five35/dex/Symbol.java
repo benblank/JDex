@@ -40,9 +40,11 @@ public abstract class Symbol {
 		throw new InvalidSymbolException(characters);
 	}
 
-	abstract Expression denoteLeft(final Parser parser, final Expression left);
+	@Nonnull
+	abstract Expression denoteLeft(final Parser parser, final Expression left) throws ParserException;
 
-	abstract Expression denoteNull(final Parser parser);
+	@Nonnull
+	abstract Expression denoteNull(final Parser parser) throws ParserException;
 
 	int getLeftBindingPower() {
 		return this.leftBindingPower;
