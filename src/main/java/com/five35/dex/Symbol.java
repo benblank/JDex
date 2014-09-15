@@ -47,6 +47,8 @@ public abstract class Symbol {
 		}
 	};
 
+	static final Symbol VIRTUAL_TERMINATOR = new VirtualSymbol("VIRTUAL_TERMINATOR", "(end)", 0);
+
 	private final int bindingPower;
 	private final String name;
 

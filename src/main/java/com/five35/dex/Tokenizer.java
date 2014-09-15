@@ -47,6 +47,8 @@ final class Tokenizer {
 			tokens.add(new Token(matcher.start() + 1, matcher.group()));
 		}
 
+		tokens.add(new Token(source.length(), "(end)"));
+
 		return tokens;
 	}
 }
