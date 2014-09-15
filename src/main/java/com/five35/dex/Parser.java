@@ -1,5 +1,6 @@
 package com.five35.dex;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.PeekingIterator;
@@ -32,11 +33,31 @@ public final class Parser {
 	}
 
 	@Nonnull
-	Expression getExpression() throws ParserException {
-		return null;
+	Symbol advance(final Optional<Symbol> expected) throws ParserException {
+		final Token oldToken = this.tokens.next();
+		final Token token = this.tokens.peek();
+
+		if (token == null) {
+			throw new MissingSymbolException(oldToken.getIndex() + oldToken.toString().length(), expected, Optional.<Token>absent());
+		}
+
+		final Symbol symbol = Symbol.getSymbol(token);
+
+		// There is only one instance of each symbol, so object equality really
+		// is what we want.
+		if (!expected.isPresent() || expected.get() == symbol) {
+			return symbol;
+		}
+
+		throw new MissingSymbolException(token.getIndex(), expected, Optional.of(token));
 	}
 
 	Token getCurrentToken() {
 		return this.tokens.peek();
+	}
+
+	@Nonnull
+	Expression getExpression() throws ParserException {
+		return null;
 	}
 }
