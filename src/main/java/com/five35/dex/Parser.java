@@ -29,7 +29,7 @@ public final class Parser {
 	 */
 	@Nonnull
 	public static Expression parse(final String source) throws ParserException {
-		return new Parser(Preconditions.checkNotNull(source)).getExpression();
+		return new Parser(Preconditions.checkNotNull(source)).getExpression(0);
 	}
 
 	@Nonnull
@@ -58,7 +58,7 @@ public final class Parser {
 	}
 
 	@Nonnull
-	Expression getExpression() throws ParserException {
+	Expression getExpression(final int bindingPower) throws ParserException {
 		return null;
 	}
 }

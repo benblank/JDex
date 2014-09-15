@@ -9,7 +9,7 @@ abstract class InfixSymbol extends Symbol {
 
 	@Override
 	Expression getLeftDenotation(final Parser parser, final Expression left) throws ParserException {
-		final Expression right = parser.getExpression();
+		final Expression right = parser.getExpression(this.getBindingPower());
 
 		return new BinaryExpression(this, left, right);
 	}
