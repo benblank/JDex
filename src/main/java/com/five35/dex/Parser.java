@@ -70,10 +70,12 @@ public final class Parser {
 	@Nonnull
 	Expression getExpression(final int bindingPower) throws ParserException {
 		Symbol symbol = this.advance(Optional.<Symbol>absent());
+		Symbol nextSymbol = Symbol.getSymbol(this.previewNextToken());
 		Expression expression = symbol.getNullDenotation(this);
 
-		while (bindingPower < symbol.getBindingPower()) {
+		while (bindingPower < nextSymbol.getBindingPower()) {
 			symbol = this.advance(Optional.<Symbol>absent());
+			nextSymbol = Symbol.getSymbol(this.previewNextToken());
 			expression = symbol.getLeftDenotation(this, expression);
 		}
 
