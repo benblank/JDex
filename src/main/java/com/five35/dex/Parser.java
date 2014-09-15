@@ -81,7 +81,11 @@ public final class Parser {
 	}
 
 	@Nonnull
-	Token previewNextToken() {
-		return this.tokens.peek();
+	Token previewNextToken() throws MissingSymbolException {
+		try {
+			return this.tokens.peek();
+		} catch (final NoSuchElementException ex) {
+			throw new MissingSymbolException(this.currentToken.getIndex(), Optional.<Symbol>absent(), Optional.<Token>absent());
+		}
 	}
 }
