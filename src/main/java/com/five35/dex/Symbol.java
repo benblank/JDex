@@ -47,16 +47,16 @@ public abstract class Symbol {
 		}
 	};
 
-	private final int leftBindingPower;
+	private final int bindingPower;
 	private final String name;
 
 	Symbol(final String name, final int leftBindingPower) {
 		this.name = Preconditions.checkNotNull(name);
-		this.leftBindingPower = leftBindingPower;
+		this.bindingPower = leftBindingPower;
 	}
 
-	Symbol(final String name, final String characters, final int leftBindingPower) {
-		this(name, leftBindingPower);
+	Symbol(final String name, final String characters, final int bindingPower) {
+		this(name, bindingPower);
 
 		Symbol.SYMBOL_TABLE.put(characters, this);
 	}
@@ -78,8 +78,8 @@ public abstract class Symbol {
 		throw new InvalidSymbolException(characters);
 	}
 
-	int getLeftBindingPower() {
-		return this.leftBindingPower;
+	int getBindingPower() {
+		return this.bindingPower;
 	}
 
 	@Nonnull

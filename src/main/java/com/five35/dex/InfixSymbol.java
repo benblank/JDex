@@ -1,8 +1,8 @@
 package com.five35.dex;
 
 abstract class InfixSymbol extends Symbol {
-	InfixSymbol(final String name, final String characters, final int leftBindingPower) {
-		super(name, characters, leftBindingPower);
+	InfixSymbol(final String name, final String characters, final int bindingPower) {
+		super(name, characters, bindingPower);
 	}
 
 	abstract Result binary(final Result left, final Result right);

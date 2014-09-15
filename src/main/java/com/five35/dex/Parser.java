@@ -52,6 +52,7 @@ public final class Parser {
 		throw new MissingSymbolException(token.getIndex(), expected, Optional.of(token));
 	}
 
+	@Nonnull
 	Token getCurrentToken() {
 		return this.tokens.peek();
 	}
