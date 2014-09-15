@@ -66,7 +66,15 @@ public final class Parser {
 
 	@Nonnull
 	Expression getExpression(final int bindingPower) throws ParserException {
-		return null;
+		Symbol symbol = this.advance(Optional.<Symbol>absent());
+		Expression expression = symbol.getNullDenotation(this);
+
+		while (bindingPower < symbol.getBindingPower()) {
+			symbol = this.advance(Optional.<Symbol>absent());
+			expression = symbol.getLeftDenotation(this, expression);
+		}
+
+		return expression;
 	}
 
 	@Nonnull
