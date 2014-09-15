@@ -3,6 +3,7 @@ package com.five35.dex;
 import com.google.common.base.Preconditions;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -12,6 +13,9 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public abstract class Symbol {
 	private static final Map<String, Symbol> SYMBOL_TABLE = new HashMap<>();
+	private static final Pattern SCALAR_PATTERN = Pattern.compile("\\p{Digit}+", Pattern.UNICODE_CHARACTER_CLASS);
+
+	static final Symbol LITERAL_SCALAR = new ScalarSymbol("LITERAL_SCALAR", 0);
 
 	// TODO: needs to work as a unary operator, too
 	static final Symbol OPERATOR_ADD = new InfixSymbol("OPERATOR_ADD", "+", 10) {
@@ -63,6 +67,10 @@ public abstract class Symbol {
 
 		if (Symbol.SYMBOL_TABLE.containsKey(characters)) {
 			return Symbol.SYMBOL_TABLE.get(characters);
+		}
+
+		if (Symbol.SCALAR_PATTERN.matcher(characters).matches()) {
+			return Symbol.LITERAL_SCALAR;
 		}
 
 		// TODO: recognize variable names and numbers
