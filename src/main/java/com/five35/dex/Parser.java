@@ -11,6 +11,10 @@ import javax.annotation.Nonnull;
  * A parser for Dex code.
  */
 public final class Parser {
+	// Initialized with a dummy token to ensure empty source is handled
+	// correctly.
+	private Token currentToken = new Token(1, "");
+
 	private final PeekingIterator<Token> tokens;
 
 	private Parser(final String source) {
@@ -34,31 +38,39 @@ public final class Parser {
 
 	@Nonnull
 	Symbol advance(final Optional<Symbol> expected) throws ParserException {
-		final Token oldToken = this.tokens.next();
-		final Token token = this.tokens.peek();
+		final Token nextToken = this.tokens.next();
 
-		if (token == null) {
-			throw new MissingSymbolException(oldToken.getIndex() + oldToken.toString().length(), expected, Optional.<Token>absent());
+		if (nextToken == null) {
+			final int index = this.currentToken.getIndex() + this.currentToken.toString().length();
+
+			throw new MissingSymbolException(index, expected, Optional.<Token>absent());
 		}
 
-		final Symbol symbol = Symbol.getSymbol(token);
+		final Symbol symbol = Symbol.getSymbol(nextToken);
 
 		// There is only one instance of each symbol, so object equality really
 		// is what we want.
 		if (!expected.isPresent() || expected.get() == symbol) {
+			this.currentToken = nextToken;
+
 			return symbol;
 		}
 
-		throw new MissingSymbolException(token.getIndex(), expected, Optional.of(token));
+		throw new MissingSymbolException(nextToken.getIndex(), expected, Optional.of(nextToken));
 	}
 
 	@Nonnull
 	Token getCurrentToken() {
-		return this.tokens.peek();
+		return this.currentToken;
 	}
 
 	@Nonnull
 	Expression getExpression(final int bindingPower) throws ParserException {
 		return null;
+	}
+
+	@Nonnull
+	Token previewNextToken() {
+		return this.tokens.peek();
 	}
 }
