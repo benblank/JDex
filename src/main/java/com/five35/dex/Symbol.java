@@ -13,10 +13,11 @@ import javax.annotation.concurrent.Immutable;
 public abstract class Symbol {
 	private static final Map<String, Symbol> SYMBOL_TABLE = new HashMap<>();
 
+	// TODO: needs to work as a unary operator, too
 	static final Symbol OPERATOR_ADD = new InfixSymbol("OPERATOR_ADD", "+", 10) {
 		@Override
 		Result binary(final Result left, final Result right) {
-			return new ScalarResult(left.asFloat() + left.asFloat());
+			return new ScalarResult(left.asScalar() + left.asScalar());
 		}
 	};
 
@@ -24,21 +25,21 @@ public abstract class Symbol {
 	static final Symbol OPERATOR_SUBTRACT = new InfixSymbol("OPERATOR_SUBTRACT", "-", 10) {
 		@Override
 		Result binary(final Result left, final Result right) {
-			return new ScalarResult(left.asFloat() - left.asFloat());
+			return new ScalarResult(left.asScalar() - left.asScalar());
 		}
 	};
 
 	static final Symbol OPERATOR_MULTIPLY = new InfixSymbol("OPERATOR_MULTIPLY", "*", 20) {
 		@Override
 		Result binary(final Result left, final Result right) {
-			return new ScalarResult(left.asFloat() * left.asFloat());
+			return new ScalarResult(left.asScalar() * left.asScalar());
 		}
 	};
 
 	static final Symbol OPERATOR_DIVIDE = new InfixSymbol("OPERATOR_DIVIDE", "/", 20) {
 		@Override
 		Result binary(final Result left, final Result right) {
-			return new ScalarResult(left.asFloat() / left.asFloat());
+			return new ScalarResult(left.asScalar() / left.asScalar());
 		}
 	};
 
@@ -69,15 +70,15 @@ public abstract class Symbol {
 		throw new InvalidSymbolException(characters);
 	}
 
-	@Nonnull
-	abstract Expression denoteLeft(final Parser parser, final Expression left) throws ParserException;
-
-	@Nonnull
-	abstract Expression denoteNull(final Parser parser) throws ParserException;
-
 	int getLeftBindingPower() {
 		return this.leftBindingPower;
 	}
+
+	@Nonnull
+	abstract Expression getLeftDenotation(final Parser parser, final Expression left) throws ParserException;
+
+	@Nonnull
+	abstract Expression getNullDenotation(final Parser parser) throws ParserException;
 
 	@Override
 	@Nonnull

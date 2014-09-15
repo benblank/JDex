@@ -36,8 +36,7 @@ public final class Parser {
 		return null;
 	}
 
-	Token getToken() {
-		// TODO Auto-generated method stub
-		return null;
+	Token getCurrentToken() {
+		return this.tokens.peek();
 	}
 }

@@ -1,6 +1,6 @@
 package com.five35.dex;
 
-import java.util.List;
+import com.google.common.collect.Multiset;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -13,11 +13,11 @@ public interface Result {
 	 * @return The result as a list.
 	 */
 	@Nonnull
-	List<Float> asList();
+	Multiset<? extends Result> asSet();
 
 	/**
 	 * @return The result as a floating-point number.
 	 */
 	@Nonnull
-	float asFloat();
+	float asScalar();
 }

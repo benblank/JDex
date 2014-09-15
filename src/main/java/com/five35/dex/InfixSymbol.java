@@ -8,14 +8,14 @@ abstract class InfixSymbol extends Symbol {
 	abstract Result binary(final Result left, final Result right);
 
 	@Override
-	Expression denoteLeft(final Parser parser, final Expression left) throws ParserException {
+	Expression getLeftDenotation(final Parser parser, final Expression left) throws ParserException {
 		final Expression right = parser.getExpression();
 
 		return new BinaryExpression(this, left, right);
 	}
 
 	@Override
-	Expression denoteNull(final Parser parser) throws ParserException {
-		throw new SyntaxException(parser.getToken());
+	Expression getNullDenotation(final Parser parser) throws ParserException {
+		throw new SyntaxException(parser.getCurrentToken());
 	}
 }

@@ -1,7 +1,7 @@
 package com.five35.dex;
 
-import com.google.common.collect.ImmutableList;
-import java.util.List;
+import com.google.common.collect.ImmutableMultiset;
+import com.google.common.collect.Multiset;
 
 /**
  * A result which is a single number value.
@@ -14,12 +14,12 @@ public class ScalarResult implements Result {
 	}
 
 	@Override
-	public float asFloat() {
+	public float asScalar() {
 		return this.value;
 	}
 
 	@Override
-	public List<Float> asList() {
-		return ImmutableList.of(this.value);
+	public Multiset<? extends Result> asSet() {
+		return ImmutableMultiset.of(this);
 	}
 }
