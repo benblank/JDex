@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.PeekingIterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import javax.annotation.Nonnull;
 
 /**
@@ -38,9 +39,11 @@ public final class Parser {
 
 	@Nonnull
 	Symbol advance(final Optional<Symbol> expected) throws ParserException {
-		final Token nextToken = this.tokens.next();
+		final Token nextToken;
 
-		if (nextToken == null) {
+		try {
+			nextToken = this.tokens.next();
+		} catch (final NoSuchElementException ex) {
 			final int index = this.currentToken.getIndex() + this.currentToken.toString().length();
 
 			throw new MissingSymbolException(index, expected, Optional.<Token>absent());

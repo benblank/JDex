@@ -20,7 +20,7 @@ public class MissingSymbolException extends ParserException {
 		// the formatter for this statement.
 
 		//@formatter:off
-		super(String.format("Expected symbol%s at %d, but found %s",
+		super(String.format("Expected symbol%s at %d, but found %s.",
 			expected.isPresent() ? " " + expected.get().toString() : "",
 			index,
 			found.isPresent() ? found.get().toString() : "end of string"));
