@@ -1,8 +1,9 @@
 package com.five35.dex;
 
 import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,8 +20,12 @@ public class TokenizerTest {
 	private static void assertTokens(final String source, final String... strings) {
 		final List<Token> tokens = Tokenizer.tokenize(source);
 		final List<String> actual = Lists.transform(tokens, TokenizerTest.STRINGS_FROM_TOKENS);
+		final List<String> expected = new ArrayList<>(Arrays.asList(strings));
 
-		Assert.assertEquals(ImmutableList.copyOf(strings), actual);
+		// Add the terminal token implicitly, so it doesn't have to be listed on each test.
+		expected.add("(end)");
+
+		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
