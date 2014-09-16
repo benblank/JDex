@@ -18,32 +18,32 @@ public abstract class Symbol {
 	static final Symbol LITERAL_SCALAR = new ScalarSymbol("LITERAL_SCALAR", 0);
 
 	// TODO: needs to work as a unary operator, too
-	static final Symbol OPERATOR_ADD = new InfixSymbol("OPERATOR_ADD", "+", 10) {
+	static final InfixSymbol OPERATOR_ADD = new InfixSymbol("OPERATOR_ADD", "+", 10) {
 		@Override
 		Result binary(final Result left, final Result right) {
-			return new ScalarResult(left.asScalar() + left.asScalar());
+			return new ScalarResult(left.asScalar() + right.asScalar());
 		}
 	};
 
 	// TODO: needs to work as a unary operator, too
-	static final Symbol OPERATOR_SUBTRACT = new InfixSymbol("OPERATOR_SUBTRACT", "-", 10) {
+	static final InfixSymbol OPERATOR_SUBTRACT = new InfixSymbol("OPERATOR_SUBTRACT", "-", 10) {
 		@Override
 		Result binary(final Result left, final Result right) {
-			return new ScalarResult(left.asScalar() - left.asScalar());
+			return new ScalarResult(left.asScalar() - right.asScalar());
 		}
 	};
 
-	static final Symbol OPERATOR_MULTIPLY = new InfixSymbol("OPERATOR_MULTIPLY", "*", 20) {
+	static final InfixSymbol OPERATOR_MULTIPLY = new InfixSymbol("OPERATOR_MULTIPLY", "*", 20) {
 		@Override
 		Result binary(final Result left, final Result right) {
-			return new ScalarResult(left.asScalar() * left.asScalar());
+			return new ScalarResult(left.asScalar() * right.asScalar());
 		}
 	};
 
-	static final Symbol OPERATOR_DIVIDE = new InfixSymbol("OPERATOR_DIVIDE", "/", 20) {
+	static final InfixSymbol OPERATOR_DIVIDE = new InfixSymbol("OPERATOR_DIVIDE", "/", 20) {
 		@Override
 		Result binary(final Result left, final Result right) {
-			return new ScalarResult(left.asScalar() / left.asScalar());
+			return new ScalarResult(left.asScalar() / right.asScalar());
 		}
 	};
 

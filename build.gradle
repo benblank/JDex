@@ -13,5 +13,9 @@ dependencies {
 	compile \
 		"com.google.code.findbugs:jsr305:2.0.+",
 		"com.google.guava:guava:16.0.+"
-	testCompile "junit:junit:4.+"
+
+	// JMockIt *must* be listed before JUnit for correct operation
+	testCompile \
+		"org.jmockit:jmockit:1.11",
+		"junit:junit:4.11"
 }
