@@ -40,4 +40,6 @@ public class SymbolTest {
 	public void operatorSubtract_subtracts(@Mocked final Result left, @Mocked final Result right) {
 		this.assertOperator(27, Symbol.OPERATOR_SUBTRACT, left, right);
 	}
+
+	// TODO: actually test Symbol itself
 }
