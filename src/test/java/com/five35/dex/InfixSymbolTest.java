@@ -9,14 +9,14 @@ import org.junit.Test;
 
 @SuppressWarnings({ "javadoc", "unused" })
 public class InfixSymbolTest {
-	private static class DummySymbol extends InfixSymbol {
+	static class DummySymbol extends InfixSymbol {
 		DummySymbol() {
 			super("DUMMY", "(dummy)", -535);
 		}
 
 		@Override
 		Result binary(final Result left, final Result right) {
-			return null;
+			return new ScalarResult(0);
 		}
 	}
 
