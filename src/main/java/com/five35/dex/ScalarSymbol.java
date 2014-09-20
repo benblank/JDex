@@ -5,8 +5,8 @@ import com.google.common.base.Preconditions;
 import java.util.Map;
 
 class ScalarSymbol extends Symbol {
-	ScalarSymbol(final String name, final int leftBindingPower) {
-		super(name, leftBindingPower);
+	ScalarSymbol(final String name) {
+		super(name, 0);
 	}
 
 	@Override

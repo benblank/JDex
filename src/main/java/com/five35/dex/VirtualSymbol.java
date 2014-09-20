@@ -1,8 +1,8 @@
 package com.five35.dex;
 
 class VirtualSymbol extends Symbol {
-	VirtualSymbol(final String name, final String characters, final int bindingPower) {
-		super(name, characters, bindingPower);
+	VirtualSymbol(final String name, final String characters) {
+		super(name, characters, 0);
 	}
 
 	@Override
