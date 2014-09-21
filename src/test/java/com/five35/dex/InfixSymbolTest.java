@@ -1,5 +1,6 @@
 package com.five35.dex;
 
+import com.google.common.base.Preconditions;
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
@@ -22,6 +23,33 @@ public class InfixSymbolTest {
 
 	@Tested
 	InfixSymbolTest.DummySymbol infixSymbol;
+
+	@Test
+	public void ctor_checksForNullArguments() {
+		new Expectations(Preconditions.class) {
+			{
+				Preconditions.checkNotNull("DUMMY");
+				this.result = "DUMMY";
+
+				Preconditions.checkNotNull("(dummy)");
+				this.result = "(dummy)";
+			}
+		};
+
+		new InfixSymbolTest.DummySymbol();
+	}
+
+	@Test
+	public void getLeftDenotation_checksForNullArguments(@Mocked final Parser parser, @Mocked final Expression left) throws Exception {
+		new Expectations(Preconditions.class) {
+			{
+				Preconditions.checkNotNull(parser);
+				Preconditions.checkNotNull(left);
+			}
+		};
+
+		this.infixSymbol.getLeftDenotation(parser, left);
+	}
 
 	@Test
 	public void getLeftDenotation_getsExpression(@Mocked final Parser parser, @Mocked final Expression left, @Mocked final Expression right) throws Exception {
