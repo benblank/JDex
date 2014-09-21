@@ -48,14 +48,7 @@ public class InfixSymbolTest {
 	}
 
 	@Test(expected = SyntaxException.class)
-	public void getNullDenotation_throws(@Mocked final Parser parser) throws Exception {
-		new NonStrictExpectations() {
-			{
-				parser.getCurrentToken();
-				this.result = new Token(1, "(dummy)");
-			}
-		};
-
+	public void getNullDenotation_throwsSyntaxException(@Mocked final Parser parser) throws Exception {
 		this.infixSymbol.getNullDenotation(parser);
 	}
 }
