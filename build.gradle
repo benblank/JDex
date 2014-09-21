@@ -16,6 +16,6 @@ dependencies {
 
 	// JMockIt *must* be listed before JUnit for correct operation
 	testCompile \
-		"org.jmockit:jmockit:1.11",
+		"org.jmockit:jmockit:1.12",
 		"junit:junit:4.11"
 }
