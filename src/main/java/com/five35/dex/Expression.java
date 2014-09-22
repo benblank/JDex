@@ -16,7 +16,9 @@ public interface Expression {
 	 * @param variables A mapping containing any variables available to the
 	 *        expression.
 	 * @return The result of executing the expression.
+	 * @throws ExecutionException When an error occurs which prevents the
+	 *         execution of the expression.
 	 */
 	@Nonnull
-	Result execute(Optional<Map<String, Expression>> variables);
+	Result execute(Optional<Map<String, Expression>> variables) throws ExecutionException;
 }

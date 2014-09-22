@@ -1,5 +1,6 @@
 package com.five35.dex.cli;
 
+import com.five35.dex.ExecutionException;
 import com.five35.dex.Expression;
 import com.five35.dex.Parser;
 import com.five35.dex.ParserException;
@@ -14,16 +15,13 @@ public class Main {
 
 	public static void main(final String[] args) {
 		final String source = Joiner.on(" ").join(args);
-		final Expression expression;
 
 		try {
-			expression = Parser.parse(source);
-		} catch (final ParserException ex) {
+			System.out.println(Parser.parse(source).execute(Optional.<Map<String, Expression>>absent()).asScalar());
+		} catch (final ExecutionException | ParserException ex) {
 			System.err.println(ex.getMessage());
 
 			return;
 		}
-
-		System.out.println(expression.execute(Optional.<Map<String, Expression>>absent()).asScalar());
 	}
 }

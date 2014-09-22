@@ -24,7 +24,7 @@ public class BinaryExpressionTest {
 	}
 
 	@Test
-	public void execute_callsInfix(@Injectable final InfixSymbolTest.DummySymbol symbol, @Mocked final Expression expression) {
+	public void execute_callsInfix(@Injectable final InfixSymbolTest.DummySymbol symbol, @Mocked final Expression expression) throws Exception {
 		new Expectations() {
 			{
 				symbol.binary((Result) this.any, (Result) this.any);
@@ -35,7 +35,7 @@ public class BinaryExpressionTest {
 	}
 
 	@Test
-	public void execute_checksForNullArguments(@Injectable final InfixSymbolTest.DummySymbol symbol, @Mocked final Expression expression, @Mocked final Optional<Map<String, Expression>> variables) {
+	public void execute_checksForNullArguments(@Injectable final InfixSymbolTest.DummySymbol symbol, @Mocked final Expression expression, @Mocked final Optional<Map<String, Expression>> variables) throws Exception {
 		new Expectations(Preconditions.class) {
 			{
 				Preconditions.checkNotNull(variables);
