@@ -1,6 +1,7 @@
 package com.five35.dex;
 
 import com.google.common.base.Preconditions;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
@@ -26,15 +27,20 @@ public class InfixSymbolTest {
 
 	@Test
 	public void ctor_checksForNullArguments() {
-		new Expectations(Preconditions.class) {
-			{
+		@SuppressFBWarnings(value = "DMI_DOH", justification = "It's sensical when declaring expectations.")
+		final class ArgumentExpectations extends Expectations {
+			ArgumentExpectations() {
+				super(Preconditions.class);
+
 				Preconditions.checkNotNull("DUMMY");
 				this.result = "DUMMY";
 
 				Preconditions.checkNotNull("(dummy)");
 				this.result = "(dummy)";
 			}
-		};
+		}
+
+		new ArgumentExpectations();
 
 		new InfixSymbolTest.DummySymbol();
 	}
