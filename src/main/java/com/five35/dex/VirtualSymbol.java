@@ -1,8 +1,10 @@
 package com.five35.dex;
 
+import com.google.common.base.Preconditions;
+
 class VirtualSymbol extends Symbol {
 	VirtualSymbol(final String name, final String characters) {
-		super(name, characters, 0);
+		super(Preconditions.checkNotNull(name), Preconditions.checkNotNull(characters), 0);
 	}
 
 	@Override
