@@ -9,7 +9,7 @@ import mockit.Tested;
 import org.junit.Assert;
 import org.junit.Test;
 
-@SuppressWarnings({ "javadoc", "unused" })
+@SuppressWarnings({ "javadoc", "static-method", "unused" })
 public class InfixSymbolTest {
 	static class DummySymbol extends InfixSymbol {
 		DummySymbol() {
