@@ -1,14 +1,17 @@
 package com.five35.dex;
 
 import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import mockit.Expectations;
 import org.junit.Assert;
 import org.junit.Test;
 
-@SuppressWarnings({ "javadoc", "static-method" })
+@SuppressWarnings({ "javadoc", "static-method", "unused" })
 public class TokenizerTest {
 	private static final Function<Token, String> STRINGS_FROM_TOKENS = new Function<Token, String>() {
 		@Override
@@ -35,6 +38,23 @@ public class TokenizerTest {
 
 		Assert.assertEquals(1, tokens.get(0).getIndex());
 		Assert.assertEquals(4, tokens.get(1).getIndex());
+	}
+
+	@Test
+	public void tokenize_checksForNullArguments() {
+		@SuppressFBWarnings(value = "DMI_DOH", justification = "It's sensical when declaring expectations.")
+		final class ArgumentExpectations extends Expectations {
+			ArgumentExpectations() {
+				super(Preconditions.class);
+
+				Preconditions.checkNotNull("FOO");
+				this.result = "FOO";
+			}
+		}
+
+		new ArgumentExpectations();
+
+		Tokenizer.tokenize("FOO");
 	}
 
 	@Test
