@@ -1,7 +1,10 @@
 package com.five35.dex;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Map;
+import mockit.Expectations;
 import mockit.Mock;
 import mockit.MockUp;
 import mockit.Mocked;
@@ -11,6 +14,23 @@ import org.junit.Test;
 
 @SuppressWarnings({ "javadoc", "static-method", "unused" })
 public class ScalarSymbolTest {
+	@Test
+	public void ctor_checksForNullArguments() {
+		@SuppressFBWarnings(value = "DMI_DOH", justification = "It's sensical when declaring expectations.")
+		final class ArgumentExpectations extends Expectations {
+			ArgumentExpectations() {
+				super(Preconditions.class);
+
+				Preconditions.checkNotNull("FOO");
+				this.result = "FOO";
+			}
+		}
+
+		new ArgumentExpectations();
+
+		new ScalarSymbol("FOO");
+	}
+
 	@Test
 	public void ctor_hasZeroBindingPower() {
 		new MockUp<Symbol>() {
@@ -26,6 +46,28 @@ public class ScalarSymbolTest {
 	@Test(expected = SyntaxException.class)
 	public void getLeftDenotation_throwsSyntaxException(@Mocked final Parser parser, @Mocked final Expression left) throws Exception {
 		new ScalarSymbol("FOO").getLeftDenotation(parser, left);
+	}
+
+	@Test
+	public void getNullDenotation_checksForNullArguments(@Mocked final Parser parser, @Mocked final Token token) throws Exception {
+		new Expectations(Preconditions.class) {
+			{
+				Preconditions.checkNotNull(parser);
+				this.result = parser;
+			}
+		};
+
+		new NonStrictExpectations() {
+			{
+				parser.getCurrentToken();
+				this.result = token;
+
+				token.toString();
+				this.result = "0";
+			}
+		};
+
+		new ScalarSymbol("FOO").getNullDenotation(parser);
 	}
 
 	@Test
