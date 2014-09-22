@@ -6,6 +6,7 @@ import com.five35.dex.Parser;
 import com.five35.dex.ParserException;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("javadoc")
@@ -17,7 +18,11 @@ public class Main {
 		final String source = Joiner.on(" ").join(args);
 
 		try {
-			System.out.println(Parser.parse(source).execute(Optional.<Map<String, Expression>>absent()).asScalar());
+			final Map<String, Expression> variables = new HashMap<>();
+
+			variables.put("one", Parser.parse("1"));
+
+			System.out.println(Parser.parse(source).execute(Optional.of(variables)).asScalar());
 		} catch (final ExecutionException | ParserException ex) {
 			System.err.println(ex.getMessage());
 

@@ -14,8 +14,10 @@ import javax.annotation.concurrent.Immutable;
 public abstract class Symbol {
 	private static final Map<String, Symbol> SYMBOL_TABLE = new HashMap<>();
 	private static final Pattern SCALAR_PATTERN = Pattern.compile("\\p{Digit}+", Pattern.UNICODE_CHARACTER_CLASS);
+	private static final Pattern VARIABLE_PATTERN = Pattern.compile("[\\p{Alpha}_]+", Pattern.UNICODE_CHARACTER_CLASS);
 
 	static final Symbol LITERAL_SCALAR = new ScalarSymbol("LITERAL_SCALAR");
+	static final Symbol VARIABLE_REFERENCE = new ReferenceSymbol("VARIABLE_REFERENCE");
 
 	// TODO: needs to work as a unary operator, too
 	static final InfixSymbol OPERATOR_ADD = new InfixSymbol("OPERATOR_ADD", "+", 10) {
@@ -75,7 +77,9 @@ public abstract class Symbol {
 			return Symbol.LITERAL_SCALAR;
 		}
 
-		// TODO: recognize variable names and numbers
+		if (Symbol.VARIABLE_PATTERN.matcher(characters).matches()) {
+			return Symbol.VARIABLE_REFERENCE;
+		}
 
 		throw new InvalidSymbolException(characters);
 	}
