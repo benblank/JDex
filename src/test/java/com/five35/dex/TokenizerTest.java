@@ -13,7 +13,7 @@ public class TokenizerTest {
 	private static final Function<Token, String> STRINGS_FROM_TOKENS = new Function<Token, String>() {
 		@Override
 		public String apply(final Token token) {
-			return token.toString();
+			return token == null ? null : token.toString();
 		}
 	};
 
