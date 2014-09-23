@@ -10,11 +10,11 @@ import javax.annotation.concurrent.Immutable;
 public class MissingSymbolException extends ParserException {
 	private static final long serialVersionUID = 466382546876378790L;
 
-	private final Optional<Symbol> expected;
+	private final Optional<? extends Symbol> expected;
 	private final Optional<Token> found;
 	private final int index;
 
-	MissingSymbolException(final int index, final Optional<Symbol> expected, final Optional<Token> found) {
+	MissingSymbolException(final int index, final Optional<? extends Symbol> expected, final Optional<Token> found) {
 		// In general, statements should be extracted rather than wrapped, but
 		// that isn't possible for constructors' super() calls, so just disable
 		// the formatter for this statement.
@@ -34,7 +34,7 @@ public class MissingSymbolException extends ParserException {
 	/**
 	 * @return The specific symbol expected, if any.
 	 */
-	public final Optional<Symbol> getExpected() {
+	public final Optional<? extends Symbol> getExpected() {
 		return this.expected;
 	}
 

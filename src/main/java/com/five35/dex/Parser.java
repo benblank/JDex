@@ -38,7 +38,7 @@ public final class Parser {
 	}
 
 	@Nonnull
-	Symbol advance(final Optional<Symbol> expected) throws ParserException {
+	Symbol advance(final Optional<? extends Symbol> expected) throws ParserException {
 		final Token nextToken;
 
 		try {
