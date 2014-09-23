@@ -1,8 +1,6 @@
 package com.five35.dex;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Map;
 import mockit.Expectations;
 import mockit.Mock;
@@ -16,17 +14,7 @@ import org.junit.Test;
 public class ReferenceSymbolTest {
 	@Test
 	public void ctor_checksForNullArguments() {
-		@SuppressFBWarnings(value = "DMI_DOH", justification = "It's sensical when declaring expectations.")
-		final class ArgumentExpectations extends Expectations {
-			ArgumentExpectations() {
-				super(Preconditions.class);
-
-				Preconditions.checkNotNull("FOO");
-				this.result = "FOO";
-			}
-		}
-
-		new ArgumentExpectations();
+		new NullCheckExpectations("FOO");
 
 		new ReferenceSymbol("FOO");
 	}
@@ -50,12 +38,7 @@ public class ReferenceSymbolTest {
 
 	@Test
 	public void getNullDenotation_checksForNullArguments(@Mocked final Parser parser, @Mocked final Token token) throws Exception {
-		new Expectations(Preconditions.class) {
-			{
-				Preconditions.checkNotNull(parser);
-				this.result = parser;
-			}
-		};
+		new NullCheckExpectations(parser);
 
 		new NonStrictExpectations() {
 			{

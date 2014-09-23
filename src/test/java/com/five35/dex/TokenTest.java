@@ -1,7 +1,5 @@
 package com.five35.dex;
 
-import com.google.common.base.Preconditions;
-import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.Test;
 
@@ -9,11 +7,7 @@ import org.junit.Test;
 public class TokenTest {
 	@Test
 	public void ctor_checksForNullArguments(@Mocked final String string) {
-		new Expectations(Preconditions.class) {
-			{
-				Preconditions.checkNotNull(string);
-			}
-		};
+		new NullCheckExpectations(string);
 
 		new Token(0, string);
 	}

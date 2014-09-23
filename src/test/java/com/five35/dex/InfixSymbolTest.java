@@ -1,7 +1,5 @@
 package com.five35.dex;
 
-import com.google.common.base.Preconditions;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mockit.Expectations;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
@@ -27,32 +25,14 @@ public class InfixSymbolTest {
 
 	@Test
 	public void ctor_checksForNullArguments() {
-		@SuppressFBWarnings(value = "DMI_DOH", justification = "It's sensical when declaring expectations.")
-		final class ArgumentExpectations extends Expectations {
-			ArgumentExpectations() {
-				super(Preconditions.class);
-
-				Preconditions.checkNotNull("DUMMY");
-				this.result = "DUMMY";
-
-				Preconditions.checkNotNull("(dummy)");
-				this.result = "(dummy)";
-			}
-		}
-
-		new ArgumentExpectations();
+		new NullCheckExpectations("DUMMY", "(dummy)");
 
 		new InfixSymbolTest.DummySymbol();
 	}
 
 	@Test
 	public void getLeftDenotation_checksForNullArguments(@Mocked final Parser parser, @Mocked final Expression left) throws Exception {
-		new Expectations(Preconditions.class) {
-			{
-				Preconditions.checkNotNull(parser);
-				Preconditions.checkNotNull(left);
-			}
-		};
+		new NullCheckExpectations(parser, left);
 
 		this.infixSymbol.getLeftDenotation(parser, left);
 	}

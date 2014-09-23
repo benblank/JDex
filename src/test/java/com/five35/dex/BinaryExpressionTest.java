@@ -1,7 +1,6 @@
 package com.five35.dex;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import java.util.Map;
 import mockit.Expectations;
 import mockit.Injectable;
@@ -12,13 +11,7 @@ import org.junit.Test;
 public class BinaryExpressionTest {
 	@Test
 	public void ctor_checksForNullArguments(@Injectable final InfixSymbolTest.DummySymbol symbol, @Mocked final Expression left, @Mocked final Expression right) {
-		new Expectations(Preconditions.class) {
-			{
-				Preconditions.checkNotNull(symbol);
-				Preconditions.checkNotNull(left);
-				Preconditions.checkNotNull(right);
-			}
-		};
+		new NullCheckExpectations(symbol, left, right);
 
 		new BinaryExpression(symbol, left, right);
 	}
@@ -36,11 +29,7 @@ public class BinaryExpressionTest {
 
 	@Test
 	public void execute_checksForNullArguments(@Injectable final InfixSymbolTest.DummySymbol symbol, @Mocked final Expression expression, @Mocked final Optional<Map<String, Expression>> variables) throws Exception {
-		new Expectations(Preconditions.class) {
-			{
-				Preconditions.checkNotNull(variables);
-			}
-		};
+		new NullCheckExpectations(variables);
 
 		new BinaryExpression(symbol, expression, expression).execute(variables);
 	}

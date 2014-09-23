@@ -1,13 +1,10 @@
 package com.five35.dex;
 
 import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import mockit.Expectations;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -42,17 +39,7 @@ public class TokenizerTest {
 
 	@Test
 	public void tokenize_checksForNullArguments() {
-		@SuppressFBWarnings(value = "DMI_DOH", justification = "It's sensical when declaring expectations.")
-		final class ArgumentExpectations extends Expectations {
-			ArgumentExpectations() {
-				super(Preconditions.class);
-
-				Preconditions.checkNotNull("FOO");
-				this.result = "FOO";
-			}
-		}
-
-		new ArgumentExpectations();
+		new NullCheckExpectations("FOO");
 
 		Tokenizer.tokenize("FOO");
 	}
