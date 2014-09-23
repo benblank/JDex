@@ -39,6 +39,8 @@ public final class Parser {
 
 	@Nonnull
 	Symbol advance(final Optional<? extends Symbol> expected) throws ParserException {
+		Preconditions.checkNotNull(expected);
+
 		final Token nextToken;
 
 		try {
