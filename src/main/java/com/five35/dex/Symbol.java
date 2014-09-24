@@ -22,7 +22,7 @@ public abstract class Symbol {
 	// TODO: needs to work as a unary operator, too
 	static final InfixSymbol OPERATOR_ADD = new InfixSymbol("OPERATOR_ADD", "+", 10) {
 		@Override
-		Result binary(final Result left, final Result right) {
+		public Result binary(final Result left, final Result right) {
 			return new ScalarResult(left.asScalar() + right.asScalar());
 		}
 	};
@@ -30,21 +30,21 @@ public abstract class Symbol {
 	// TODO: needs to work as a unary operator, too
 	static final InfixSymbol OPERATOR_SUBTRACT = new InfixSymbol("OPERATOR_SUBTRACT", "-", 10) {
 		@Override
-		Result binary(final Result left, final Result right) {
+		public Result binary(final Result left, final Result right) {
 			return new ScalarResult(left.asScalar() - right.asScalar());
 		}
 	};
 
 	static final InfixSymbol OPERATOR_MULTIPLY = new InfixSymbol("OPERATOR_MULTIPLY", "*", 20) {
 		@Override
-		Result binary(final Result left, final Result right) {
+		public Result binary(final Result left, final Result right) {
 			return new ScalarResult(left.asScalar() * right.asScalar());
 		}
 	};
 
 	static final InfixSymbol OPERATOR_DIVIDE = new InfixSymbol("OPERATOR_DIVIDE", "/", 20) {
 		@Override
-		Result binary(final Result left, final Result right) {
+		public Result binary(final Result left, final Result right) {
 			return new ScalarResult(left.asScalar() / right.asScalar());
 		}
 	};

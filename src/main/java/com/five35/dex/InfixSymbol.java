@@ -1,15 +1,11 @@
 package com.five35.dex;
 
 import com.google.common.base.Preconditions;
-import javax.annotation.Nonnull;
 
-abstract class InfixSymbol extends Symbol {
+abstract class InfixSymbol extends Symbol implements BinarySymbol {
 	InfixSymbol(final String name, final String characters, final int bindingPower) {
 		super(Preconditions.checkNotNull(name), Preconditions.checkNotNull(characters), bindingPower);
 	}
-
-	@Nonnull
-	abstract Result binary(final Result left, final Result right);
 
 	@Override
 	Expression getLeftDenotation(final Parser parser, final Expression left) throws ParserException {
