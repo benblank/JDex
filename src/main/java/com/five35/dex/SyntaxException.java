@@ -11,6 +11,6 @@ public class SyntaxException extends ParserException {
 
 	@SuppressWarnings("javadoc")
 	public SyntaxException(final Token token) {
-		super(String.format("Binary operator %s is not valid at %d.", token, token.getIndex()));
+		super(String.format("Symbol %s is not valid at %d.", token, token.getIndex()));
 	}
 }
