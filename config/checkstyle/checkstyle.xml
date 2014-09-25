@@ -11,6 +11,7 @@
 <module name="Checker">
   <property name="severity" value="warning"/>
   <module name="TreeWalker">
+    <module name="SuppressWarningsHolder"/>
     <module name="AnnotationUseStyle"/>
     <module name="MissingDeprecated"/>
     <module name="MissingOverride"/>
@@ -100,4 +101,5 @@
     <property name="lineSeparator" value="lf"/>
     <property name="fileExtensions" value="java,properties,text,xml"/>
   </module>
+  <module name="SuppressWarningsFilter"/>
 </module>
