@@ -64,7 +64,7 @@ public class ParserTest {
 	public void advance_throwsOnUnexpectedSymbol() throws Exception {
 		final Parser parser = Deencapsulation.newInstance(Parser.class, "1 1");
 
-		parser.advance(Optional.of(new InfixSymbolTest.DummySymbol()));
+		parser.advance(Optional.of(new Symbol("INVALID", "(invalid)", 0)));
 	}
 
 	@Test
