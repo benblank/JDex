@@ -16,9 +16,4 @@ abstract class InfixSymbol extends Symbol implements BinarySymbol {
 
 		return new BinaryExpression(this, left, right);
 	}
-
-	@Override
-	Expression getNullDenotation(final Parser parser) throws ParserException {
-		throw new SyntaxException(parser.getCurrentToken());
-	}
 }

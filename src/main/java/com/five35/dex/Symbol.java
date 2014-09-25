@@ -11,7 +11,7 @@ import javax.annotation.concurrent.Immutable;
  * A valid symbol in Dex.
  */
 @Immutable
-public abstract class Symbol {
+public class Symbol {
 	private static final Map<String, Symbol> SYMBOL_TABLE = new HashMap<>();
 	private static final Pattern SCALAR_PATTERN = Pattern.compile("\\p{Digit}+", Pattern.UNICODE_CHARACTER_CLASS);
 	private static final Pattern VARIABLE_PATTERN = Pattern.compile("[\\p{Alpha}_]+", Pattern.UNICODE_CHARACTER_CLASS);
@@ -49,7 +49,7 @@ public abstract class Symbol {
 		}
 	};
 
-	static final Symbol VIRTUAL_TERMINATOR = new VirtualSymbol("VIRTUAL_TERMINATOR", "(end)");
+	static final Symbol VIRTUAL_TERMINATOR = new Symbol("VIRTUAL_TERMINATOR", "(end)", 0);
 
 	private final int bindingPower;
 	private final String name;
@@ -88,15 +88,21 @@ public abstract class Symbol {
 		return this.bindingPower;
 	}
 
-	@Nonnull
-	abstract Expression getLeftDenotation(final Parser parser, final Expression left) throws ParserException;
-
-	@Nonnull
-	abstract Expression getNullDenotation(final Parser parser) throws ParserException;
-
 	@Override
 	@Nonnull
 	public String toString() {
 		return this.name;
+	}
+
+	@Nonnull
+	@SuppressWarnings("static-method")
+	Expression getLeftDenotation(final Parser parser, @SuppressWarnings("unused") final Expression left) throws ParserException {
+		throw new SyntaxException(parser.getCurrentToken());
+	}
+
+	@Nonnull
+	@SuppressWarnings("static-method")
+	Expression getNullDenotation(final Parser parser) throws ParserException {
+		throw new SyntaxException(parser.getCurrentToken());
 	}
 }

@@ -10,11 +10,6 @@ class ScalarSymbol extends Symbol {
 	}
 
 	@Override
-	Expression getLeftDenotation(final Parser parser, final Expression left) throws ParserException {
-		throw new SyntaxException(parser.getCurrentToken());
-	}
-
-	@Override
 	Expression getNullDenotation(final Parser parser) throws ParserException {
 		final String characters = Preconditions.checkNotNull(parser).getCurrentToken().toString();
 		final float value;
