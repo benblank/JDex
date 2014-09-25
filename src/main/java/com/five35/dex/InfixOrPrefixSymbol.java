@@ -6,7 +6,7 @@ abstract class InfixOrPrefixSymbol extends Symbol implements BinarySymbol, Unary
 	private final int rightBindingPower;
 
 	InfixOrPrefixSymbol(final String name, final String characters, final int leftBindingPower, final int rightBindingPower) {
-		super(name, characters, leftBindingPower);
+		super(Preconditions.checkNotNull(name), Preconditions.checkNotNull(characters), leftBindingPower);
 
 		this.rightBindingPower = rightBindingPower;
 	}
