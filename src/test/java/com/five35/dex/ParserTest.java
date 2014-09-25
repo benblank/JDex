@@ -8,7 +8,7 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Test;
 
-@SuppressWarnings({ "javadoc", "static-method", "unused" })
+@SuppressWarnings({ "javadoc", "static-method", "unchecked", "unused" })
 public class ParserTest {
 	// TODO: make tests more hermetic
 
@@ -83,7 +83,9 @@ public class ParserTest {
 		new NonStrictExpectations(Parser.class) {
 			{
 				final Parser parser = Deencapsulation.newInstance(Parser.class, this.anyString);
+
 				parser.getExpression(this.anyInt);
+				parser.advance((Optional<? extends Symbol>) this.any);
 			}
 		};
 

@@ -12,6 +12,8 @@ import javax.annotation.Nonnull;
  * A parser for Dex code.
  */
 public final class Parser {
+	private Symbol currentSymbol;
+
 	// Initialized with a dummy token to ensure empty source is handled
 	// correctly.
 	private Token currentToken = new Token(1, "");
@@ -71,14 +73,16 @@ public final class Parser {
 
 	@Nonnull
 	Expression getExpression(final int bindingPower) throws ParserException {
-		Symbol symbol = this.advance(Optional.<Symbol>absent());
+		this.currentSymbol = this.advance(Optional.<Symbol>absent());
+
+		Expression expression = this.currentSymbol.getNullDenotation(this);
 		Symbol nextSymbol = Symbol.getSymbol(this.previewNextToken());
-		Expression expression = symbol.getNullDenotation(this);
 
 		while (bindingPower < nextSymbol.getBindingPower()) {
-			symbol = this.advance(Optional.<Symbol>absent());
+			this.currentSymbol = this.advance(Optional.<Symbol>absent());
+
+			expression = this.currentSymbol.getLeftDenotation(this, expression);
 			nextSymbol = Symbol.getSymbol(this.previewNextToken());
-			expression = symbol.getLeftDenotation(this, expression);
 		}
 
 		return expression;
