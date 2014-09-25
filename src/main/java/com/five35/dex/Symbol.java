@@ -19,19 +19,27 @@ public class Symbol {
 	static final Symbol LITERAL_SCALAR = new ScalarSymbol("LITERAL_SCALAR");
 	static final Symbol VARIABLE_REFERENCE = new ReferenceSymbol("VARIABLE_REFERENCE");
 
-	// TODO: needs to work as a unary operator, too
-	static final InfixSymbol OPERATOR_ADD = new InfixSymbol("OPERATOR_ADD", "+", 10) {
+	static final InfixOrPrefixSymbol OPERATOR_ADD = new InfixOrPrefixSymbol("OPERATOR_ADD", "+", 10, 30) {
 		@Override
 		public Result binary(final Result left, final Result right) {
 			return new ScalarResult(left.asScalar() + right.asScalar());
 		}
+
+		@Override
+		public Result unary(final Result operand) {
+			return new ScalarResult(operand.asScalar());
+		}
 	};
 
-	// TODO: needs to work as a unary operator, too
-	static final InfixSymbol OPERATOR_SUBTRACT = new InfixSymbol("OPERATOR_SUBTRACT", "-", 10) {
+	static final InfixOrPrefixSymbol OPERATOR_SUBTRACT = new InfixOrPrefixSymbol("OPERATOR_SUBTRACT", "-", 10, 30) {
 		@Override
 		public Result binary(final Result left, final Result right) {
 			return new ScalarResult(left.asScalar() - right.asScalar());
+		}
+
+		@Override
+		public Result unary(final Result operand) {
+			return new ScalarResult(-operand.asScalar());
 		}
 	};
 

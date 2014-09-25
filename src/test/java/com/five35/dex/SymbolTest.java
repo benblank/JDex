@@ -1,13 +1,14 @@
 package com.five35.dex;
 
+import mockit.Expectations;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Assert;
 import org.junit.Test;
 
-@SuppressWarnings({ "javadoc", "unused" })
+@SuppressWarnings({ "javadoc", "static-method", "unused" })
 public class SymbolTest {
-	private void assertOperator(final float expected, final InfixSymbol operator, final Result left, final Result right) {
+	private void assertBinaryOperator(final float expected, final BinarySymbol operator, final Result left, final Result right) {
 		new NonStrictExpectations() {
 			{
 				left.asScalar();
@@ -23,22 +24,45 @@ public class SymbolTest {
 
 	@Test
 	public void operatorAdd_adds(@Mocked final Result left, @Mocked final Result right) {
-		this.assertOperator(33, Symbol.OPERATOR_ADD, left, right);
+		this.assertBinaryOperator(33, Symbol.OPERATOR_ADD, left, right);
+	}
+
+	@Test
+	public void operatorAdd_casts(@Mocked final Result operand) {
+		new Expectations() {
+			{
+				operand.asScalar();
+			}
+		};
+
+		Symbol.OPERATOR_ADD.unary(operand);
 	}
 
 	@Test
 	public void operatorDivide_divides(@Mocked final Result left, @Mocked final Result right) {
-		this.assertOperator(10, Symbol.OPERATOR_DIVIDE, left, right);
+		this.assertBinaryOperator(10, Symbol.OPERATOR_DIVIDE, left, right);
 	}
 
 	@Test
 	public void operatorMultiply_multiplies(@Mocked final Result left, @Mocked final Result right) {
-		this.assertOperator(90, Symbol.OPERATOR_MULTIPLY, left, right);
+		this.assertBinaryOperator(90, Symbol.OPERATOR_MULTIPLY, left, right);
+	}
+
+	@Test
+	public void operatorSubtract_negates(@Mocked final Result operand) {
+		new NonStrictExpectations() {
+			{
+				operand.asScalar();
+				this.result = 5;
+			}
+		};
+
+		Assert.assertEquals(-5, Symbol.OPERATOR_SUBTRACT.unary(operand).asScalar(), 0.001);
 	}
 
 	@Test
 	public void operatorSubtract_subtracts(@Mocked final Result left, @Mocked final Result right) {
-		this.assertOperator(27, Symbol.OPERATOR_SUBTRACT, left, right);
+		this.assertBinaryOperator(27, Symbol.OPERATOR_SUBTRACT, left, right);
 	}
 
 	// TODO: actually test Symbol itself
