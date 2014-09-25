@@ -36,7 +36,12 @@ public final class Parser {
 	 */
 	@Nonnull
 	public static Expression parse(final String source) throws ParserException {
-		return new Parser(Preconditions.checkNotNull(source)).getExpression(0);
+		final Parser parser = new Parser(Preconditions.checkNotNull(source));
+		final Expression expression = parser.getExpression(0);
+
+		parser.advance(Optional.of(Symbol.VIRTUAL_TERMINATOR));
+
+		return expression;
 	}
 
 	@Nonnull
