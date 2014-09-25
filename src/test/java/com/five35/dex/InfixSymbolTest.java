@@ -9,9 +9,9 @@ import org.junit.Test;
 
 @SuppressWarnings({ "javadoc", "static-method", "unused" })
 public class InfixSymbolTest {
-	static class DummySymbol extends InfixSymbol {
-		DummySymbol() {
-			super("DUMMY", "(dummy)", -535);
+	static class DummyInfixSymbol extends InfixSymbol {
+		DummyInfixSymbol() {
+			super("DUMMY_INFIX", "(dummy infix)", -535);
 		}
 
 		@Override
@@ -21,13 +21,13 @@ public class InfixSymbolTest {
 	}
 
 	@Tested
-	InfixSymbolTest.DummySymbol infixSymbol;
+	InfixSymbolTest.DummyInfixSymbol infixSymbol;
 
 	@Test
 	public void ctor_checksForNullArguments() {
-		new NullCheckExpectations("DUMMY", "(dummy)");
+		new NullCheckExpectations("DUMMY_INFIX", "(dummy infix)");
 
-		new InfixSymbolTest.DummySymbol();
+		new InfixSymbolTest.DummyInfixSymbol();
 	}
 
 	@Test

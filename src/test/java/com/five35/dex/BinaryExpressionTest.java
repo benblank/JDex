@@ -10,14 +10,14 @@ import org.junit.Test;
 @SuppressWarnings({ "javadoc", "static-method", "unused" })
 public class BinaryExpressionTest {
 	@Test
-	public void ctor_checksForNullArguments(@Injectable final InfixSymbolTest.DummySymbol symbol, @Mocked final Expression left, @Mocked final Expression right) {
+	public void ctor_checksForNullArguments(@Injectable final InfixSymbolTest.DummyInfixSymbol symbol, @Mocked final Expression left, @Mocked final Expression right) {
 		new NullCheckExpectations(symbol, left, right);
 
 		new BinaryExpression(symbol, left, right);
 	}
 
 	@Test
-	public void execute_callsInfix(@Injectable final InfixSymbolTest.DummySymbol symbol, @Mocked final Expression expression) throws Exception {
+	public void execute_callsInfix(@Injectable final InfixSymbolTest.DummyInfixSymbol symbol, @Mocked final Expression expression) throws Exception {
 		new Expectations() {
 			{
 				symbol.binary((Result) this.any, (Result) this.any);
@@ -28,7 +28,7 @@ public class BinaryExpressionTest {
 	}
 
 	@Test
-	public void execute_checksForNullArguments(@Injectable final InfixSymbolTest.DummySymbol symbol, @Mocked final Expression expression, @Mocked final Optional<Map<String, Expression>> variables) throws Exception {
+	public void execute_checksForNullArguments(@Injectable final InfixSymbolTest.DummyInfixSymbol symbol, @Mocked final Expression expression, @Mocked final Optional<Map<String, Expression>> variables) throws Exception {
 		new NullCheckExpectations(variables);
 
 		new BinaryExpression(symbol, expression, expression).execute(variables);
