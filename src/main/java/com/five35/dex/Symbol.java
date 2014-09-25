@@ -22,11 +22,16 @@ public class Symbol {
 	static final InfixOrPrefixSymbol OPERATOR_ADD = new InfixOrPrefixSymbol("OPERATOR_ADD", "+", 10, 30) {
 		@Override
 		public Result binary(final Result left, final Result right) {
+			Preconditions.checkNotNull(left);
+			Preconditions.checkNotNull(right);
+
 			return new ScalarResult(left.asScalar() + right.asScalar());
 		}
 
 		@Override
 		public Result unary(final Result operand) {
+			Preconditions.checkNotNull(operand);
+
 			return new ScalarResult(operand.asScalar());
 		}
 	};
@@ -34,11 +39,16 @@ public class Symbol {
 	static final InfixOrPrefixSymbol OPERATOR_SUBTRACT = new InfixOrPrefixSymbol("OPERATOR_SUBTRACT", "-", 10, 30) {
 		@Override
 		public Result binary(final Result left, final Result right) {
+			Preconditions.checkNotNull(left);
+			Preconditions.checkNotNull(right);
+
 			return new ScalarResult(left.asScalar() - right.asScalar());
 		}
 
 		@Override
 		public Result unary(final Result operand) {
+			Preconditions.checkNotNull(operand);
+
 			return new ScalarResult(-operand.asScalar());
 		}
 	};
@@ -46,6 +56,9 @@ public class Symbol {
 	static final InfixSymbol OPERATOR_MULTIPLY = new InfixSymbol("OPERATOR_MULTIPLY", "*", 20) {
 		@Override
 		public Result binary(final Result left, final Result right) {
+			Preconditions.checkNotNull(left);
+			Preconditions.checkNotNull(right);
+
 			return new ScalarResult(left.asScalar() * right.asScalar());
 		}
 	};
@@ -53,6 +66,9 @@ public class Symbol {
 	static final InfixSymbol OPERATOR_DIVIDE = new InfixSymbol("OPERATOR_DIVIDE", "/", 20) {
 		@Override
 		public Result binary(final Result left, final Result right) {
+			Preconditions.checkNotNull(left);
+			Preconditions.checkNotNull(right);
+
 			return new ScalarResult(left.asScalar() / right.asScalar());
 		}
 	};

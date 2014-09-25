@@ -23,12 +23,19 @@ public class SymbolTest {
 	}
 
 	@Test
-	public void operatorAdd_adds(@Mocked final Result left, @Mocked final Result right) {
+	public void operatorAdd_binary_adds(@Mocked final Result left, @Mocked final Result right) {
 		this.assertBinaryOperator(33, Symbol.OPERATOR_ADD, left, right);
 	}
 
 	@Test
-	public void operatorAdd_casts(@Mocked final Result operand) {
+	public void operatorAdd_binary_checksForNullArguments(@Mocked final Result left, @Mocked final Result right) {
+		new NullCheckExpectations(left, right);
+
+		Symbol.OPERATOR_ADD.binary(left, right);
+	}
+
+	@Test
+	public void operatorAdd_unary_casts(@Mocked final Result operand) {
 		new Expectations() {
 			{
 				operand.asScalar();
@@ -39,8 +46,29 @@ public class SymbolTest {
 	}
 
 	@Test
+	public void operatorAdd_unary_checksForNullArguments(@Mocked final Result operand) {
+		new NullCheckExpectations(operand);
+
+		Symbol.OPERATOR_ADD.unary(operand);
+	}
+
+	@Test
+	public void operatorDivide_checksForNullArguments(@Mocked final Result left, @Mocked final Result right) {
+		new NullCheckExpectations(left, right);
+
+		Symbol.OPERATOR_DIVIDE.binary(left, right);
+	}
+
+	@Test
 	public void operatorDivide_divides(@Mocked final Result left, @Mocked final Result right) {
 		this.assertBinaryOperator(10, Symbol.OPERATOR_DIVIDE, left, right);
+	}
+
+	@Test
+	public void operatorMultiply_checksForNullArguments(@Mocked final Result left, @Mocked final Result right) {
+		new NullCheckExpectations(left, right);
+
+		Symbol.OPERATOR_MULTIPLY.binary(left, right);
 	}
 
 	@Test
@@ -49,7 +77,26 @@ public class SymbolTest {
 	}
 
 	@Test
-	public void operatorSubtract_negates(@Mocked final Result operand) {
+	public void operatorSubtract_binary_checksForNullArguments(@Mocked final Result left, @Mocked final Result right) {
+		new NullCheckExpectations(left, right);
+
+		Symbol.OPERATOR_SUBTRACT.binary(left, right);
+	}
+
+	@Test
+	public void operatorSubtract_binary_subtracts(@Mocked final Result left, @Mocked final Result right) {
+		this.assertBinaryOperator(27, Symbol.OPERATOR_SUBTRACT, left, right);
+	}
+
+	@Test
+	public void operatorSubtract_unary_checksForNullArguments(@Mocked final Result operand) {
+		new NullCheckExpectations(operand);
+
+		Symbol.OPERATOR_SUBTRACT.unary(operand);
+	}
+
+	@Test
+	public void operatorSubtract_unary_negates(@Mocked final Result operand) {
 		new NonStrictExpectations() {
 			{
 				operand.asScalar();
@@ -58,11 +105,6 @@ public class SymbolTest {
 		};
 
 		Assert.assertEquals(-5, Symbol.OPERATOR_SUBTRACT.unary(operand).asScalar(), 0.001);
-	}
-
-	@Test
-	public void operatorSubtract_subtracts(@Mocked final Result left, @Mocked final Result right) {
-		this.assertBinaryOperator(27, Symbol.OPERATOR_SUBTRACT, left, right);
 	}
 
 	// TODO: actually test Symbol itself
