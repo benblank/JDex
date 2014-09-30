@@ -19,11 +19,6 @@ public class ScalarResult extends Result {
 		return this.value;
 	}
 
-	@Override
-	public Multiset<? extends Result> asSet() {
-		return ImmutableMultiset.of(this);
-	}
-
 	/**
 	 * Indicates whether some other object is "equal to" this one.
 	 * 

@@ -9,12 +9,6 @@ import javax.annotation.concurrent.Immutable;
  */
 @Immutable
 public abstract class Result {
-	/**
-	 * @return The result as a list.
-	 */
-	@Nonnull
-	@Deprecated
-	public abstract Multiset<? extends Result> asSet();
 
 	/**
 	 * @return The result as a floating-point number.
