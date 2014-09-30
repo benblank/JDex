@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 /**
  * A result which is a single number value.
  */
-public class ScalarResult implements Result {
+public class ScalarResult extends Result {
 	private final float value;
 
 	ScalarResult(final float value) {

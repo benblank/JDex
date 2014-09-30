@@ -8,16 +8,16 @@ import javax.annotation.concurrent.Immutable;
  * Represents the result of executing a Dex expression.
  */
 @Immutable
-public interface Result {
+public abstract class Result {
 	/**
 	 * @return The result as a list.
 	 */
 	@Nonnull
-	Multiset<? extends Result> asSet();
+	public abstract Multiset<? extends Result> asSet();
 
 	/**
 	 * @return The result as a floating-point number.
 	 */
 	@Nonnull
-	float asScalar();
+	public abstract float asScalar();
 }
