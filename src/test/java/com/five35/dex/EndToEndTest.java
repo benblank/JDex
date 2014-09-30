@@ -48,5 +48,9 @@ public class EndToEndTest {
 		this.assertResult("-3.0", "-1 - 2");
 		this.assertResult("8.0", "5 - -3");
 		this.assertResult("2.0", "-+2+--++-+-4");
+
+		this.assertResult("9.0", "(1 + 2) * 3");
+		this.assertResult("-5.0", "-(2 + 3)");
+		this.assertResult("-4.0", "4 * (2 - 3)");
 	}
 }

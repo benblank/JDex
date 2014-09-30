@@ -1,5 +1,6 @@
 package com.five35.dex;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,6 +74,18 @@ public class Symbol {
 		}
 	};
 
+	static final Symbol OPERATOR_SUBEXPRESSION = new Symbol("OPERATOR_SUBEXPRESSION", "(", 30) {
+		@Override
+		Expression getNullDenotation(final Parser parser) throws ParserException {
+			final Expression expression = Preconditions.checkNotNull(parser).getExpression(0);
+
+			parser.advance(Optional.of(Symbol.VIRTUAL_CLOSE_PAREN));
+
+			return expression;
+		}
+	};
+
+	static final Symbol VIRTUAL_CLOSE_PAREN = new Symbol("VIRTUAL_CLOSE_PAREN", ")", 0);
 	static final Symbol VIRTUAL_TERMINATOR = new Symbol("VIRTUAL_TERMINATOR", "(end)", 0);
 
 	private final int bindingPower;
@@ -112,12 +125,6 @@ public class Symbol {
 		return this.bindingPower;
 	}
 
-	@Override
-	@Nonnull
-	public String toString() {
-		return this.name;
-	}
-
 	@Nonnull
 	@SuppressWarnings("static-method")
 	Expression getLeftDenotation(final Parser parser, @SuppressWarnings("unused") final Expression left) throws ParserException {
@@ -128,5 +135,11 @@ public class Symbol {
 	@SuppressWarnings("static-method")
 	Expression getNullDenotation(final Parser parser) throws ParserException {
 		throw new SyntaxException(parser.getCurrentToken());
+	}
+
+	@Override
+	@Nonnull
+	public String toString() {
+		return this.name;
 	}
 }
