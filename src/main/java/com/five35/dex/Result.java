@@ -1,5 +1,6 @@
 package com.five35.dex;
 
+import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -39,11 +40,30 @@ public abstract class Result<T> {
 		throw new ResultCastException(this.getClass(), type);
 	}
 
+	@Override
+	public boolean equals(final Object obj) {
+		if (obj instanceof Result) {
+			return Objects.equals(this.getValue(), ((Result<?>) obj).getValue());
+		}
+
+		return false;
+	}
+
 	/**
 	 * @return The value of this result.
 	 */
 	@Nonnull
 	public T getValue() {
 		return this.value;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(this.value);
+	}
+
+	@Override
+	public String toString() {
+		return this.value.toString();
 	}
 }
