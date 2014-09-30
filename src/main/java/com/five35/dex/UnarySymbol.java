@@ -4,5 +4,5 @@ import javax.annotation.Nonnull;
 
 interface UnarySymbol {
 	@Nonnull
-	Result unary(final Result operand);
+	Result unary(final Result operand) throws ExecutionException;
 }
