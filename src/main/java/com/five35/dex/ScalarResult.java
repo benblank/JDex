@@ -1,22 +1,18 @@
 package com.five35.dex;
 
-import com.google.common.collect.ImmutableMultiset;
-import com.google.common.collect.Multiset;
 import javax.annotation.Nonnull;
 
 /**
  * A result which is a single number value.
  */
-public class ScalarResult extends Result {
-	private final float value;
-
+public class ScalarResult extends Result<Float> {
 	ScalarResult(final float value) {
-		this.value = value;
+		super(value);
 	}
 
 	@Override
 	public float asScalar() {
-		return this.value;
+		return this.getValue();
 	}
 
 	/**
@@ -31,17 +27,17 @@ public class ScalarResult extends Result {
 	 */
 	@Override
 	public boolean equals(final Object other) {
-		return other instanceof ScalarResult && this.value == ((ScalarResult) other).value;
+		return other instanceof ScalarResult && this.getValue() == ((ScalarResult) other).getValue();
 	}
 
 	@Override
 	public int hashCode() {
-		return 31 + Float.floatToIntBits(this.value);
+		return 31 + Float.floatToIntBits(this.getValue());
 	}
 
 	@Override
 	@Nonnull
 	public String toString() {
-		return Float.toString(this.value);
+		return Float.toString(this.getValue());
 	}
 }

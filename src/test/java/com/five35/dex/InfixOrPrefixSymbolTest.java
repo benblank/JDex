@@ -15,12 +15,12 @@ public class InfixOrPrefixSymbolTest {
 		}
 
 		@Override
-		public Result binary(final Result left, final Result right) {
+		public Result<?> binary(final Result<?> left, final Result<?> right) {
 			return new ScalarResult(0);
 		}
 
 		@Override
-		public Result unary(final Result operand) {
+		public Result<?> unary(final Result<?> operand) {
 			return new ScalarResult(0);
 		}
 	}

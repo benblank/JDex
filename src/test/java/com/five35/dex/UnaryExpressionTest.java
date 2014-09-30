@@ -20,7 +20,7 @@ public class UnaryExpressionTest {
 	public void execute_callsUnary(@Injectable final InfixOrPrefixSymbolTest.DummyInfixOrPrefixSymbol symbol, @Mocked final Expression expression) throws Exception {
 		new Expectations() {
 			{
-				symbol.unary((Result) this.any);
+				symbol.unary((Result<?>) this.any);
 			}
 		};
 

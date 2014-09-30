@@ -17,7 +17,7 @@ class ReferenceSymbol extends Symbol {
 			final String name = characters;
 
 			@Override
-			public Result execute(final Optional<Map<String, Expression>> variables) throws ExecutionException {
+			public Result<?> execute(final Optional<Map<String, Expression>> variables) throws ExecutionException {
 				if (variables.isPresent() && variables.get().containsKey(this.name)) {
 					return variables.get().get(characters).execute(variables);
 				}

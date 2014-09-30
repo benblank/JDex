@@ -15,7 +15,7 @@ public class InfixSymbolTest {
 		}
 
 		@Override
-		public Result binary(final Result left, final Result right) {
+		public Result<?> binary(final Result<?> left, final Result<?> right) {
 			return new ScalarResult(0);
 		}
 	}

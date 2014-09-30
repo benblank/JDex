@@ -21,7 +21,7 @@ public class EndToEndTest {
 	@SuppressWarnings("checkstyle:illegalcatch")
 	private void assertResult(final String expected, final String expression, final Optional<Map<String, Expression>> variables) throws Exception {
 		try {
-			final Result result = Parser.parse(expression).execute(variables);
+			final Result<?> result = Parser.parse(expression).execute(variables);
 
 			this.collector.checkThat(result.toString(), CoreMatchers.equalTo(expected));
 		} catch (final Exception ex) {

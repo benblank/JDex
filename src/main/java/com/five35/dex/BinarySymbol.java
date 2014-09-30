@@ -4,5 +4,5 @@ import javax.annotation.Nonnull;
 
 interface BinarySymbol {
 	@Nonnull
-	Result binary(final Result left, final Result right) throws ExecutionException;
+	Result<?> binary(final Result<?> left, final Result<?> right) throws ExecutionException;
 }

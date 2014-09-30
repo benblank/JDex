@@ -20,7 +20,7 @@ public class BinaryExpressionTest {
 	public void execute_callsBinary(@Injectable final InfixSymbolTest.DummyInfixSymbol symbol, @Mocked final Expression expression) throws Exception {
 		new Expectations() {
 			{
-				symbol.binary((Result) this.any, (Result) this.any);
+				symbol.binary((Result<?>) this.any, (Result<?>) this.any);
 			}
 		};
 

@@ -20,5 +20,5 @@ public interface Expression {
 	 *         execution of the expression.
 	 */
 	@Nonnull
-	Result execute(Optional<Map<String, Expression>> variables) throws ExecutionException;
+	Result<?> execute(Optional<Map<String, Expression>> variables) throws ExecutionException;
 }

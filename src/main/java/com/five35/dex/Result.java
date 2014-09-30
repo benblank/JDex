@@ -1,14 +1,21 @@
 package com.five35.dex;
 
-import com.google.common.collect.Multiset;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 /**
  * Represents the result of executing a Dex expression.
+ * 
+ * @param <T> The type represented by a subclass.
  */
 @Immutable
-public abstract class Result {
+public abstract class Result<T> {
+	private final T value;
+
+	@SuppressWarnings("javadoc")
+	protected Result(final T value) {
+		this.value = value;
+	}
 
 	/**
 	 * @return The result as a floating-point number.
@@ -24,11 +31,19 @@ public abstract class Result {
 	 *         destination type.
 	 */
 	@Nonnull
-	public <T extends Result> T cast(final Class<T> type) throws ResultCastException {
+	public <U extends Result<?>> U cast(final Class<U> type) throws ResultCastException {
 		if (type.isInstance(this)) {
 			return type.cast(this);
 		}
 
 		throw new ResultCastException(this.getClass(), type);
+	}
+
+	/**
+	 * @return The value of this result.
+	 */
+	@Nonnull
+	public T getValue() {
+		return this.value;
 	}
 }
