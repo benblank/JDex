@@ -19,13 +19,6 @@ public abstract class Result<T> {
 	}
 
 	/**
-	 * @return The result as a floating-point number.
-	 */
-	@Nonnull
-	@Deprecated
-	public abstract float asScalar();
-
-	/**
 	 * @param type The type as which to interpret this result.
 	 * @return This result, cast to the specified class.
 	 * @throws ResultCastException When this result cannot be cast to the

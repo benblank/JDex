@@ -9,11 +9,6 @@ public class ResultTest {
 		protected DummyResult() {
 			super("");
 		}
-
-		@Override
-		public float asScalar() {
-			return 0;
-		}
 	}
 
 	@Test

@@ -8,9 +8,4 @@ public class ScalarResult extends Result<Float> {
 	ScalarResult(final float value) {
 		super(value);
 	}
-
-	@Override
-	public float asScalar() {
-		return this.getValue();
-	}
 }
