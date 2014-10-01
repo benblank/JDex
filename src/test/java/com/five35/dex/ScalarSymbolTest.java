@@ -61,9 +61,9 @@ public class ScalarSymbolTest {
 			}
 		};
 
-		final float actual = new ScalarSymbol("FOO").getNullDenotation(parser).execute(Optional.<Map<String, Expression>>absent()).asScalar();
+		final Result<?> actual = new ScalarSymbol("FOO").getNullDenotation(parser).execute(Optional.<Map<String, Expression>>absent());
 
-		Assert.assertEquals(5.35, actual, 0.001);
+		Assert.assertEquals(5.35, actual.cast(ScalarResult.class).getValue(), 0.001);
 	}
 
 	@Test(expected = ParserException.class)

@@ -22,7 +22,7 @@ public class SymbolTest {
 		final Result<?> left = new ScalarResult(30);
 		final Result<?> right = new ScalarResult(3);
 
-		Assert.assertEquals(expected, operator.binary(left, right).asScalar(), 0.001);
+		Assert.assertEquals(expected, operator.binary(left, right).cast(ScalarResult.class).getValue(), 0.001);
 	}
 
 	private void assertUnaryNullCheck(final UnarySymbol operator) throws Exception {
@@ -49,7 +49,7 @@ public class SymbolTest {
 
 		new Expectations() {
 			{
-				operand.asScalar();
+				operand.cast(ScalarResult.class).getValue();
 			}
 		};
 
@@ -146,7 +146,7 @@ public class SymbolTest {
 
 	@Test
 	public void operatorSubtract_unary_negates() throws Exception {
-		Assert.assertEquals(-5, Symbol.OPERATOR_SUBTRACT.unary(new ScalarResult(5)).asScalar(), 0.001);
+		Assert.assertEquals(-5, Symbol.OPERATOR_SUBTRACT.unary(new ScalarResult(5)).cast(ScalarResult.class).getValue(), 0.001);
 	}
 
 	// TODO: actually test Symbol itself
