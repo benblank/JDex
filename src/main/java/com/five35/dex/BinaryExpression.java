@@ -16,7 +16,7 @@ class BinaryExpression implements Expression {
 	}
 
 	@Override
-	public Result execute(final Optional<Map<String, Expression>> variables) throws ExecutionException {
+	public Result<?> execute(final Optional<Map<String, Expression>> variables) throws ExecutionException {
 		Preconditions.checkNotNull(variables);
 
 		return this.symbol.binary(this.left.execute(variables), this.right.execute(variables));

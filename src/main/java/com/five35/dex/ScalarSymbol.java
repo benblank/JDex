@@ -25,10 +25,10 @@ class ScalarSymbol extends Symbol {
 		}
 
 		return new Expression() {
-			final Result result = new ScalarResult(value);
+			final Result<?> result = new ScalarResult(value);
 
 			@Override
-			public Result execute(final Optional<Map<String, Expression>> variables) {
+			public Result<?> execute(final Optional<Map<String, Expression>> variables) {
 				return this.result;
 			}
 		};

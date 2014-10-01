@@ -22,55 +22,55 @@ public class Symbol {
 
 	static final InfixOrPrefixSymbol OPERATOR_ADD = new InfixOrPrefixSymbol("OPERATOR_ADD", "+", 10, 30) {
 		@Override
-		public Result binary(final Result left, final Result right) {
-			Preconditions.checkNotNull(left);
-			Preconditions.checkNotNull(right);
+		public Result<?> binary(final Result<?> left, final Result<?> right) throws ExecutionException {
+			final float augend = Preconditions.checkNotNull(left).cast(ScalarResult.class).getValue();
+			final float addend = Preconditions.checkNotNull(right).cast(ScalarResult.class).getValue();
 
-			return new ScalarResult(left.asScalar() + right.asScalar());
+			return new ScalarResult(augend + addend);
 		}
 
 		@Override
-		public Result unary(final Result operand) {
-			Preconditions.checkNotNull(operand);
+		public Result<?> unary(final Result<?> operand) throws ExecutionException {
+			final float identity = Preconditions.checkNotNull(operand).cast(ScalarResult.class).getValue();
 
-			return new ScalarResult(operand.asScalar());
+			return new ScalarResult(identity);
 		}
 	};
 
 	static final InfixOrPrefixSymbol OPERATOR_SUBTRACT = new InfixOrPrefixSymbol("OPERATOR_SUBTRACT", "-", 10, 30) {
 		@Override
-		public Result binary(final Result left, final Result right) {
-			Preconditions.checkNotNull(left);
-			Preconditions.checkNotNull(right);
+		public Result<?> binary(final Result<?> left, final Result<?> right) throws ExecutionException {
+			final float minuend = Preconditions.checkNotNull(left).cast(ScalarResult.class).getValue();
+			final float subtrahend = Preconditions.checkNotNull(right).cast(ScalarResult.class).getValue();
 
-			return new ScalarResult(left.asScalar() - right.asScalar());
+			return new ScalarResult(minuend - subtrahend);
 		}
 
 		@Override
-		public Result unary(final Result operand) {
-			Preconditions.checkNotNull(operand);
+		public Result<?> unary(final Result<?> operand) throws ExecutionException {
+			final float negative = Preconditions.checkNotNull(operand).cast(ScalarResult.class).getValue();
 
-			return new ScalarResult(-operand.asScalar());
+			return new ScalarResult(-negative);
 		}
 	};
 
 	static final InfixSymbol OPERATOR_MULTIPLY = new InfixSymbol("OPERATOR_MULTIPLY", "*", 20) {
 		@Override
-		public Result binary(final Result left, final Result right) {
-			Preconditions.checkNotNull(left);
-			Preconditions.checkNotNull(right);
+		public Result<?> binary(final Result<?> left, final Result<?> right) throws ExecutionException {
+			final float multiplicand = Preconditions.checkNotNull(left).cast(ScalarResult.class).getValue();
+			final float multiplier = Preconditions.checkNotNull(right).cast(ScalarResult.class).getValue();
 
-			return new ScalarResult(left.asScalar() * right.asScalar());
+			return new ScalarResult(multiplicand * multiplier);
 		}
 	};
 
 	static final InfixSymbol OPERATOR_DIVIDE = new InfixSymbol("OPERATOR_DIVIDE", "/", 20) {
 		@Override
-		public Result binary(final Result left, final Result right) {
-			Preconditions.checkNotNull(left);
-			Preconditions.checkNotNull(right);
+		public Result<?> binary(final Result<?> left, final Result<?> right) throws ExecutionException {
+			final float dividend = Preconditions.checkNotNull(left).cast(ScalarResult.class).getValue();
+			final float divisor = Preconditions.checkNotNull(right).cast(ScalarResult.class).getValue();
 
-			return new ScalarResult(left.asScalar() / right.asScalar());
+			return new ScalarResult(dividend / divisor);
 		}
 	};
 

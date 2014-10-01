@@ -4,6 +4,7 @@ import com.five35.dex.ExecutionException;
 import com.five35.dex.Expression;
 import com.five35.dex.Parser;
 import com.five35.dex.ParserException;
+import com.five35.dex.ScalarResult;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class Main {
 
 			variables.put("one", Parser.parse("1"));
 
-			System.out.println(Parser.parse(source).execute(Optional.of(variables)).asScalar());
+			System.out.println(Parser.parse(source).execute(Optional.of(variables)).cast(ScalarResult.class).getValue());
 		} catch (final ExecutionException | ParserException ex) {
 			System.err.println(ex.getMessage());
 
