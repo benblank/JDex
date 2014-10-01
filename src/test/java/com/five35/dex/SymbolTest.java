@@ -9,11 +9,28 @@ import org.junit.Test;
 
 @SuppressWarnings({ "javadoc", "static-method", "unchecked", "unused" })
 public class SymbolTest {
+	private void assertBinaryNullCheck(final BinarySymbol operator) throws Exception {
+		final Result<?> left = new ScalarResult(4);
+		final Result<?> right = new ScalarResult(2);
+
+		new NullCheckExpectations(left, right);
+
+		operator.binary(left, right);
+	}
+
 	private void assertBinaryOperator(final float expected, final BinarySymbol operator) throws Exception {
 		final Result<?> left = new ScalarResult(30);
 		final Result<?> right = new ScalarResult(3);
 
 		Assert.assertEquals(expected, operator.binary(left, right).asScalar(), 0.001);
+	}
+
+	private void assertUnaryNullCheck(final UnarySymbol operator) throws Exception {
+		final Result<?> operand = new ScalarResult(4);
+
+		new NullCheckExpectations(operand);
+
+		operator.unary(operand);
 	}
 
 	@Test
@@ -22,14 +39,14 @@ public class SymbolTest {
 	}
 
 	@Test
-	public void operatorAdd_binary_checksForNullArguments(@Mocked final Result<?> left, @Mocked final Result<?> right) throws Exception {
-		new NullCheckExpectations(left, right);
-
-		Symbol.OPERATOR_ADD.binary(left, right);
+	public void operatorAdd_binary_checksForNullArguments() throws Exception {
+		this.assertBinaryNullCheck(Symbol.OPERATOR_ADD);
 	}
 
 	@Test
-	public void operatorAdd_unary_casts(@Mocked final Result<?> operand) throws Exception {
+	public void operatorAdd_unary_casts() throws Exception {
+		final Result<?> operand = new ScalarResult(5);
+
 		new Expectations() {
 			{
 				operand.asScalar();
@@ -40,17 +57,13 @@ public class SymbolTest {
 	}
 
 	@Test
-	public void operatorAdd_unary_checksForNullArguments(@Mocked final Result<?> operand) throws Exception {
-		new NullCheckExpectations(operand);
-
-		Symbol.OPERATOR_ADD.unary(operand);
+	public void operatorAdd_unary_checksForNullArguments() throws Exception {
+		this.assertUnaryNullCheck(Symbol.OPERATOR_ADD);
 	}
 
 	@Test
-	public void operatorDivide_checksForNullArguments(@Mocked final Result<?> left, @Mocked final Result<?> right) throws Exception {
-		new NullCheckExpectations(left, right);
-
-		Symbol.OPERATOR_DIVIDE.binary(left, right);
+	public void operatorDivide_checksForNullArguments() throws Exception {
+		this.assertBinaryNullCheck(Symbol.OPERATOR_DIVIDE);
 	}
 
 	@Test
@@ -59,10 +72,8 @@ public class SymbolTest {
 	}
 
 	@Test
-	public void operatorMultiply_checksForNullArguments(@Mocked final Result<?> left, @Mocked final Result<?> right) throws Exception {
-		new NullCheckExpectations(left, right);
-
-		Symbol.OPERATOR_MULTIPLY.binary(left, right);
+	public void operatorMultiply_checksForNullArguments() throws Exception {
+		this.assertBinaryNullCheck(Symbol.OPERATOR_MULTIPLY);
 	}
 
 	@Test
@@ -119,10 +130,8 @@ public class SymbolTest {
 	}
 
 	@Test
-	public void operatorSubtract_binary_checksForNullArguments(@Mocked final Result<?> left, @Mocked final Result<?> right) throws Exception {
-		new NullCheckExpectations(left, right);
-
-		Symbol.OPERATOR_SUBTRACT.binary(left, right);
+	public void operatorSubtract_binary_checksForNullArguments() throws Exception {
+		this.assertBinaryNullCheck(Symbol.OPERATOR_SUBTRACT);
 	}
 
 	@Test
@@ -131,10 +140,8 @@ public class SymbolTest {
 	}
 
 	@Test
-	public void operatorSubtract_unary_checksForNullArguments(@Mocked final Result<?> operand) throws Exception {
-		new NullCheckExpectations(operand);
-
-		Symbol.OPERATOR_SUBTRACT.unary(operand);
+	public void operatorSubtract_unary_checksForNullArguments() throws Exception {
+		this.assertUnaryNullCheck(Symbol.OPERATOR_SUBTRACT);
 	}
 
 	@Test
