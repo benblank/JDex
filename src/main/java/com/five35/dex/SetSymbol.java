@@ -13,11 +13,11 @@ class SetSymbol extends Symbol {
 	Expression getNullDenotation(final Parser parser) throws ParserException {
 		final List<Expression> elements = new ArrayList<>();
 
-		if (Symbol.getSymbol(parser.previewNextToken()) != Symbol.VIRTUAL_CLOSE_SET) {
+		if (parser.previewNextSymbol() != Symbol.VIRTUAL_CLOSE_SET) {
 			while (true) {
 				elements.add(parser.getExpression(0));
 
-				if (Symbol.getSymbol(parser.previewNextToken()) != Symbol.VIRTUAL_COMMA) {
+				if (parser.previewNextSymbol() != Symbol.VIRTUAL_COMMA) {
 					break;
 				}
 

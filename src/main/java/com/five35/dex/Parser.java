@@ -81,22 +81,22 @@ public final class Parser {
 		this.currentSymbol = this.advance(Optional.<Symbol>absent());
 
 		Expression expression = this.currentSymbol.getNullDenotation(this);
-		Symbol nextSymbol = Symbol.getSymbol(this.previewNextToken());
+		Symbol nextSymbol = this.previewNextSymbol();
 
 		while (bindingPower < nextSymbol.getBindingPower()) {
 			this.currentSymbol = this.advance(Optional.<Symbol>absent());
 
 			expression = this.currentSymbol.getLeftDenotation(this, expression);
-			nextSymbol = Symbol.getSymbol(this.previewNextToken());
+			nextSymbol = this.previewNextSymbol();
 		}
 
 		return expression;
 	}
 
 	@Nonnull
-	Token previewNextToken() throws MissingSymbolException {
+	Symbol previewNextSymbol() throws ParserException {
 		try {
-			return this.tokens.peek();
+			return Symbol.getSymbol(this.tokens.peek());
 		} catch (final NoSuchElementException ex) {
 			throw new MissingSymbolException(this.currentToken.getIndex(), Optional.<Symbol>absent(), Optional.<Token>absent());
 		}

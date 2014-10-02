@@ -93,12 +93,12 @@ public class ParserTest {
 	}
 
 	@Test(expected = MissingSymbolException.class)
-	public void previewNextToken_throwsOnEndOfStream() throws Exception {
+	public void previewNextSymbol_throwsOnEndOfStream() throws Exception {
 		final Parser parser = Deencapsulation.newInstance(Parser.class, "");
 
 		// Artificially advance to the "(end)" token.
 		Deencapsulation.getField(parser, PeekingIterator.class).next();
 
-		parser.previewNextToken();
+		parser.previewNextSymbol();
 	}
 }
