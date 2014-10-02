@@ -18,6 +18,7 @@ public class Symbol {
 	private static final Pattern VARIABLE_PATTERN = Pattern.compile("[\\p{Alpha}_]+", Pattern.UNICODE_CHARACTER_CLASS);
 
 	static final Symbol LITERAL_SCALAR = new ScalarSymbol("LITERAL_SCALAR");
+	static final Symbol LITERAL_SET = new SetSymbol("LITERAL_SET", "[", 0);
 	static final Symbol VARIABLE_REFERENCE = new ReferenceSymbol("VARIABLE_REFERENCE");
 
 	static final InfixOrPrefixSymbol OPERATOR_ADD = new InfixOrPrefixSymbol("OPERATOR_ADD", "+", 10, 30) {
@@ -86,6 +87,8 @@ public class Symbol {
 	};
 
 	static final Symbol VIRTUAL_CLOSE_PAREN = new Symbol("VIRTUAL_CLOSE_PAREN", ")", 0);
+	static final Symbol VIRTUAL_CLOSE_SET = new Symbol("VIRTUAL_CLOSE_SET", "]", 0);
+	static final Symbol VIRTUAL_COMMA = new Symbol("VIRTUAL_COMMA", ",", 0);
 	static final Symbol VIRTUAL_TERMINATOR = new Symbol("VIRTUAL_TERMINATOR", "(end)", 0);
 
 	private final int bindingPower;
