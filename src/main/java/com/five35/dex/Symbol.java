@@ -95,6 +95,15 @@ public class Symbol {
 		}
 	};
 
+	static final Symbol OPERATOR_ROLL = new Symbol("OPERATOR_ROLL", "d", BindingPower.ROLL) {
+		@Override
+		Expression getLeftDenotation(final Parser parser, final Expression left) throws ParserException {
+			final Expression right = parser.getExpression(this.getBindingPower());
+
+			return new RepeatExpression(left, new RollExpression(right));
+		}
+	};
+
 	static final Symbol VIRTUAL_CLOSE_PAREN = new Symbol("VIRTUAL_CLOSE_PAREN", ")", BindingPower.NONE);
 	static final Symbol VIRTUAL_CLOSE_SET = new Symbol("VIRTUAL_CLOSE_SET", "]", BindingPower.NONE);
 	static final Symbol VIRTUAL_COMMA = new Symbol("VIRTUAL_COMMA", ",", BindingPower.NONE);
