@@ -3,7 +3,7 @@ package com.five35.dex;
 import com.google.common.base.Preconditions;
 
 abstract class InfixSymbol extends Symbol implements BinarySymbol {
-	InfixSymbol(final String name, final String characters, final int bindingPower) {
+	InfixSymbol(final String name, final String characters, final BindingPower bindingPower) {
 		super(Preconditions.checkNotNull(name), Preconditions.checkNotNull(characters), bindingPower);
 	}
 

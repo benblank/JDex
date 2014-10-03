@@ -64,7 +64,7 @@ public class ParserTest {
 	public void advance_throwsOnUnexpectedSymbol() throws Exception {
 		final Parser parser = Deencapsulation.newInstance(Parser.class, "1 1");
 
-		parser.advance(Optional.of(new Symbol("INVALID", "(invalid)", 0)));
+		parser.advance(Optional.of(new Symbol("INVALID", "(invalid)", BindingPower.NONE)));
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class ParserTest {
 			{
 				final Parser parser = Deencapsulation.newInstance(Parser.class, this.anyString);
 
-				parser.getExpression(this.anyInt);
+				parser.getExpression((BindingPower) this.any);
 				parser.advance((Optional<? extends Symbol>) this.any);
 			}
 		};

@@ -18,10 +18,10 @@ public class Symbol {
 	private static final Pattern VARIABLE_PATTERN = Pattern.compile("[\\p{Alpha}_]+", Pattern.UNICODE_CHARACTER_CLASS);
 
 	static final Symbol LITERAL_SCALAR = new ScalarSymbol("LITERAL_SCALAR");
-	static final Symbol LITERAL_SET = new SetSymbol("LITERAL_SET", "[", 0);
+	static final Symbol LITERAL_SET = new SetSymbol("LITERAL_SET", "[", BindingPower.NONE);
 	static final Symbol VARIABLE_REFERENCE = new ReferenceSymbol("VARIABLE_REFERENCE");
 
-	static final InfixOrPrefixSymbol OPERATOR_ADD = new InfixOrPrefixSymbol("OPERATOR_ADD", "+", 10, 30) {
+	static final InfixOrPrefixSymbol OPERATOR_ADD = new InfixOrPrefixSymbol("OPERATOR_ADD", "+", BindingPower.ADDITION_SUBTRACTION, BindingPower.PREFIX_SUBEXPRESSION) {
 		@Override
 		public Result<?> binary(final Result<?> left, final Result<?> right) throws ExecutionException {
 			final float augend = Preconditions.checkNotNull(left).cast(ScalarResult.class).getValue();
@@ -38,7 +38,7 @@ public class Symbol {
 		}
 	};
 
-	static final InfixOrPrefixSymbol OPERATOR_SUBTRACT = new InfixOrPrefixSymbol("OPERATOR_SUBTRACT", "-", 10, 30) {
+	static final InfixOrPrefixSymbol OPERATOR_SUBTRACT = new InfixOrPrefixSymbol("OPERATOR_SUBTRACT", "-", BindingPower.ADDITION_SUBTRACTION, BindingPower.PREFIX_SUBEXPRESSION) {
 		@Override
 		public Result<?> binary(final Result<?> left, final Result<?> right) throws ExecutionException {
 			final float minuend = Preconditions.checkNotNull(left).cast(ScalarResult.class).getValue();
@@ -55,7 +55,7 @@ public class Symbol {
 		}
 	};
 
-	static final InfixSymbol OPERATOR_MULTIPLY = new InfixSymbol("OPERATOR_MULTIPLY", "*", 20) {
+	static final InfixSymbol OPERATOR_MULTIPLY = new InfixSymbol("OPERATOR_MULTIPLY", "*", BindingPower.MULTIPLICATION_DIVISION) {
 		@Override
 		public Result<?> binary(final Result<?> left, final Result<?> right) throws ExecutionException {
 			final float multiplicand = Preconditions.checkNotNull(left).cast(ScalarResult.class).getValue();
@@ -65,7 +65,7 @@ public class Symbol {
 		}
 	};
 
-	static final InfixSymbol OPERATOR_DIVIDE = new InfixSymbol("OPERATOR_DIVIDE", "/", 20) {
+	static final InfixSymbol OPERATOR_DIVIDE = new InfixSymbol("OPERATOR_DIVIDE", "/", BindingPower.MULTIPLICATION_DIVISION) {
 		@Override
 		public Result<?> binary(final Result<?> left, final Result<?> right) throws ExecutionException {
 			final float dividend = Preconditions.checkNotNull(left).cast(ScalarResult.class).getValue();
@@ -75,10 +75,10 @@ public class Symbol {
 		}
 	};
 
-	static final Symbol OPERATOR_SUBEXPRESSION = new Symbol("OPERATOR_SUBEXPRESSION", "(", 30) {
+	static final Symbol OPERATOR_SUBEXPRESSION = new Symbol("OPERATOR_SUBEXPRESSION", "(", BindingPower.PREFIX_SUBEXPRESSION) {
 		@Override
 		Expression getNullDenotation(final Parser parser) throws ParserException {
-			final Expression expression = Preconditions.checkNotNull(parser).getExpression(0);
+			final Expression expression = Preconditions.checkNotNull(parser).getExpression(BindingPower.NONE);
 
 			parser.advance(Optional.of(Symbol.VIRTUAL_CLOSE_PAREN));
 
@@ -86,20 +86,20 @@ public class Symbol {
 		}
 	};
 
-	static final Symbol VIRTUAL_CLOSE_PAREN = new Symbol("VIRTUAL_CLOSE_PAREN", ")", 0);
-	static final Symbol VIRTUAL_CLOSE_SET = new Symbol("VIRTUAL_CLOSE_SET", "]", 0);
-	static final Symbol VIRTUAL_COMMA = new Symbol("VIRTUAL_COMMA", ",", 0);
-	static final Symbol VIRTUAL_TERMINATOR = new Symbol("VIRTUAL_TERMINATOR", "(end)", 0);
+	static final Symbol VIRTUAL_CLOSE_PAREN = new Symbol("VIRTUAL_CLOSE_PAREN", ")", BindingPower.NONE);
+	static final Symbol VIRTUAL_CLOSE_SET = new Symbol("VIRTUAL_CLOSE_SET", "]", BindingPower.NONE);
+	static final Symbol VIRTUAL_COMMA = new Symbol("VIRTUAL_COMMA", ",", BindingPower.NONE);
+	static final Symbol VIRTUAL_TERMINATOR = new Symbol("VIRTUAL_TERMINATOR", "(end)", BindingPower.NONE);
 
-	private final int bindingPower;
+	private final BindingPower bindingPower;
 	private final String name;
 
-	Symbol(final String name, final int leftBindingPower) {
+	Symbol(final String name, final BindingPower leftBindingPower) {
 		this.name = Preconditions.checkNotNull(name);
 		this.bindingPower = leftBindingPower;
 	}
 
-	Symbol(final String name, final String characters, final int bindingPower) {
+	Symbol(final String name, final String characters, final BindingPower bindingPower) {
 		this(name, bindingPower);
 
 		Symbol.SYMBOL_TABLE.put(characters, this);
@@ -124,7 +124,7 @@ public class Symbol {
 		throw new InvalidSymbolException(characters);
 	}
 
-	int getBindingPower() {
+	BindingPower getBindingPower() {
 		return this.bindingPower;
 	}
 

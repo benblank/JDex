@@ -87,7 +87,7 @@ public class SymbolTest {
 
 		new NonStrictExpectations() {
 			{
-				parser.getExpression(this.anyInt);
+				parser.getExpression((BindingPower) this.any);
 				parser.advance((Optional<? extends Symbol>) this.any);
 			}
 		};
@@ -99,7 +99,7 @@ public class SymbolTest {
 	public void operatorSubexpression_getNullDenotation_getsFullExpression(@Mocked final Parser parser) throws Exception {
 		new Expectations() {
 			{
-				parser.getExpression(0);
+				parser.getExpression(BindingPower.NONE);
 			}
 		};
 
@@ -116,7 +116,7 @@ public class SymbolTest {
 	public void operatorSubexpression_getNullDenotation_requiresClosingParen(@Mocked final Parser parser) throws Exception {
 		new NonStrictExpectations() {
 			{
-				parser.getExpression(this.anyInt);
+				parser.getExpression((BindingPower) this.any);
 			}
 		};
 

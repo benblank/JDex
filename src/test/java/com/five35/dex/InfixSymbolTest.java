@@ -11,7 +11,7 @@ import org.junit.Test;
 public class InfixSymbolTest {
 	static class DummyInfixSymbol extends InfixSymbol {
 		DummyInfixSymbol() {
-			super("DUMMY_INFIX", "(dummy infix)", -535);
+			super("DUMMY_INFIX", "(dummy infix)", BindingPower.NONE);
 		}
 
 		@Override
@@ -41,7 +41,7 @@ public class InfixSymbolTest {
 	public void getLeftDenotation_getsExpression(@Mocked final Parser parser, @Mocked final Expression left, @Mocked final Expression right) throws Exception {
 		new Expectations() {
 			{
-				parser.getExpression(-535);
+				parser.getExpression(BindingPower.NONE);
 				this.result = right;
 			}
 		};
@@ -53,7 +53,7 @@ public class InfixSymbolTest {
 	public void getLeftDenotation_returnsBinaryExpression(@Mocked final Parser parser, @Mocked final Expression left, @Mocked final Expression right) throws Exception {
 		new NonStrictExpectations() {
 			{
-				parser.getExpression(this.anyInt);
+				parser.getExpression((BindingPower) this.any);
 				this.result = right;
 			}
 		};

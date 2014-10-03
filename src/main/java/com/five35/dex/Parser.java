@@ -37,7 +37,7 @@ public final class Parser {
 	@Nonnull
 	public static Expression parse(final String source) throws ParserException {
 		final Parser parser = new Parser(Preconditions.checkNotNull(source));
-		final Expression expression = parser.getExpression(0);
+		final Expression expression = parser.getExpression(BindingPower.NONE);
 
 		parser.advance(Optional.of(Symbol.VIRTUAL_TERMINATOR));
 
@@ -77,13 +77,13 @@ public final class Parser {
 	}
 
 	@Nonnull
-	Expression getExpression(final int bindingPower) throws ParserException {
+	Expression getExpression(final BindingPower bindingPower) throws ParserException {
 		this.currentSymbol = this.advance(Optional.<Symbol>absent());
 
 		Expression expression = this.currentSymbol.getNullDenotation(this);
 		Symbol nextSymbol = this.previewNextSymbol();
 
-		while (bindingPower < nextSymbol.getBindingPower()) {
+		while (bindingPower.isWeakerThan(nextSymbol.getBindingPower())) {
 			this.currentSymbol = this.advance(Optional.<Symbol>absent());
 
 			expression = this.currentSymbol.getLeftDenotation(this, expression);

@@ -3,9 +3,9 @@ package com.five35.dex;
 import com.google.common.base.Preconditions;
 
 abstract class InfixOrPrefixSymbol extends Symbol implements BinarySymbol, UnarySymbol {
-	private final int rightBindingPower;
+	private final BindingPower rightBindingPower;
 
-	InfixOrPrefixSymbol(final String name, final String characters, final int leftBindingPower, final int rightBindingPower) {
+	InfixOrPrefixSymbol(final String name, final String characters, final BindingPower leftBindingPower, final BindingPower rightBindingPower) {
 		super(Preconditions.checkNotNull(name), Preconditions.checkNotNull(characters), leftBindingPower);
 
 		this.rightBindingPower = rightBindingPower;

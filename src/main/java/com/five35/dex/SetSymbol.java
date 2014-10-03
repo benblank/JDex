@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class SetSymbol extends Symbol {
-	SetSymbol(final String name, final String characters, final int bindingPower) {
+	SetSymbol(final String name, final String characters, final BindingPower bindingPower) {
 		super(name, characters, bindingPower);
 	}
 
@@ -15,7 +15,7 @@ class SetSymbol extends Symbol {
 
 		if (parser.previewNextSymbol() != Symbol.VIRTUAL_CLOSE_SET) {
 			while (true) {
-				elements.add(parser.getExpression(0));
+				elements.add(parser.getExpression(BindingPower.NONE));
 
 				if (parser.previewNextSymbol() != Symbol.VIRTUAL_COMMA) {
 					break;

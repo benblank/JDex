@@ -6,7 +6,7 @@ import java.util.Map;
 
 class ReferenceSymbol extends Symbol {
 	ReferenceSymbol(final String name) {
-		super(Preconditions.checkNotNull(name), 0);
+		super(Preconditions.checkNotNull(name), BindingPower.NONE);
 	}
 
 	@Override

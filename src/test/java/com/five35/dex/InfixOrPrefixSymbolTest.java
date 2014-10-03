@@ -11,7 +11,7 @@ import org.junit.Test;
 public class InfixOrPrefixSymbolTest {
 	static class DummyInfixOrPrefixSymbol extends InfixOrPrefixSymbol {
 		DummyInfixOrPrefixSymbol() {
-			super("DUMMY_PREFIX_OR_INFIX", "(dummy prefix or infix)", -5, -107);
+			super("DUMMY_PREFIX_OR_INFIX", "(dummy prefix or infix)", BindingPower.NONE, BindingPower.ADDITION_SUBTRACTION);
 		}
 
 		@Override
@@ -46,7 +46,7 @@ public class InfixOrPrefixSymbolTest {
 	public void getLeftDenotation_getsExpression(@Mocked final Parser parser, @Mocked final Expression left, @Mocked final Expression right) throws Exception {
 		new Expectations() {
 			{
-				parser.getExpression(-5);
+				parser.getExpression(BindingPower.NONE);
 				this.result = right;
 			}
 		};
@@ -58,7 +58,7 @@ public class InfixOrPrefixSymbolTest {
 	public void getLeftDenotation_returnsBinaryExpression(@Mocked final Parser parser, @Mocked final Expression left, @Mocked final Expression right) throws Exception {
 		new NonStrictExpectations() {
 			{
-				parser.getExpression(this.anyInt);
+				parser.getExpression((BindingPower) this.any);
 				this.result = right;
 			}
 		};
@@ -77,7 +77,7 @@ public class InfixOrPrefixSymbolTest {
 	public void getNullDenotation_getsExpression(@Mocked final Parser parser, @Mocked final Expression operand) throws Exception {
 		new Expectations() {
 			{
-				parser.getExpression(-107);
+				parser.getExpression(BindingPower.ADDITION_SUBTRACTION);
 				this.result = operand;
 			}
 		};
@@ -89,7 +89,7 @@ public class InfixOrPrefixSymbolTest {
 	public void getNullDenotation_returnsUnaryExpression(@Mocked final Parser parser, @Mocked final Expression operand) throws Exception {
 		new NonStrictExpectations() {
 			{
-				parser.getExpression(this.anyInt);
+				parser.getExpression((BindingPower) this.any);
 				this.result = operand;
 			}
 		};

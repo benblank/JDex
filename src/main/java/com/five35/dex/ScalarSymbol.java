@@ -6,7 +6,7 @@ import java.util.Map;
 
 class ScalarSymbol extends Symbol {
 	ScalarSymbol(final String name) {
-		super(name, 0);
+		super(name, BindingPower.NONE);
 	}
 
 	@Override

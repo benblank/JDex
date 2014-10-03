@@ -23,8 +23,8 @@ public class ReferenceSymbolTest {
 	public void ctor_hasZeroBindingPower() {
 		new MockUp<Symbol>() {
 			@Mock(invocations = 1)
-			void $init(final String name, final int bindingPower) {
-				Assert.assertEquals(0, bindingPower);
+			void $init(final String name, final BindingPower bindingPower) {
+				Assert.assertEquals(BindingPower.NONE, bindingPower);
 			}
 		};
 
