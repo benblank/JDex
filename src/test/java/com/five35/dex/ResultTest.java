@@ -31,7 +31,7 @@ public class ResultTest {
 
 	@Test
 	public void equals_returnsFalseForNonResults() {
-		Assert.assertFalse(this.result.equals(new Integer(0)));
+		Assert.assertFalse(this.result.equals(Integer.valueOf(0)));
 	}
 
 	@Test
