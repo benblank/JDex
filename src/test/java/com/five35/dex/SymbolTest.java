@@ -34,6 +34,35 @@ public class SymbolTest {
 	}
 
 	@Test
+	public void getSymbol_recognizesKnownSymbols() throws Exception {
+		final Symbol dummySymbol = new Symbol("", "{getSymbol_recognizesKnownSymbols}", BindingPower.NONE);
+		final Token token = new Token(0, "{getSymbol_recognizesKnownSymbols}");
+
+		Assert.assertSame(dummySymbol, Symbol.getSymbol(token));
+	}
+
+	@Test
+	public void getSymbol_recognizesScalars() throws Exception {
+		final Token token = new Token(0, "535");
+
+		Assert.assertSame(Symbol.LITERAL_SCALAR, Symbol.getSymbol(token));
+	}
+
+	@Test
+	public void getSymbol_recognizesVariables() throws Exception {
+		final Token token = new Token(0, "do_wah_ditty_ditty_dum_ditty_do");
+
+		Assert.assertSame(Symbol.VARIABLE_REFERENCE, Symbol.getSymbol(token));
+	}
+
+	@Test(expected = InvalidSymbolException.class)
+	public void getSymbol_throwsOnUnrecognizedSymbol() throws Exception {
+		final Token token = new Token(0, "five35");
+
+		Symbol.getSymbol(token);
+	}
+
+	@Test
 	public void operatorAdd_binary_adds() throws Exception {
 		this.assertBinaryOperator(33, Symbol.OPERATOR_ADD);
 	}
@@ -148,6 +177,4 @@ public class SymbolTest {
 	public void operatorSubtract_unary_negates() throws Exception {
 		Assert.assertEquals(-5, Symbol.OPERATOR_SUBTRACT.unary(new ScalarResult(5)).cast(ScalarResult.class).getValue(), 0.001);
 	}
-
-	// TODO: actually test Symbol itself
 }
